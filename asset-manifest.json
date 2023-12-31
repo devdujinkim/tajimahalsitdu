@@ -1,0 +1,29 @@
+{
+  "files": {
+<<<<<<< HEAD
+    "main.css": "/tajimahalsitdu/static/css/main.ff56259c.css",
+    "main.js": "/tajimahalsitdu/static/js/main.684db096.js",
+    "static/js/787.d4aba7ab.chunk.js": "/tajimahalsitdu/static/js/787.d4aba7ab.chunk.js",
+    "index.html": "/tajimahalsitdu/index.html",
+    "main.ff56259c.css.map": "/tajimahalsitdu/static/css/main.ff56259c.css.map",
+    "main.684db096.js.map": "/tajimahalsitdu/static/js/main.684db096.js.map",
+    "787.d4aba7ab.chunk.js.map": "/tajimahalsitdu/static/js/787.d4aba7ab.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ff56259c.css",
+    "static/js/main.684db096.js"
+=======
+    "main.css": "/static/css/main.82f1684e.css",
+    "main.js": "/static/js/main.8aef58c6.js",
+    "static/js/787.d4aba7ab.chunk.js": "/static/js/787.d4aba7ab.chunk.js",
+    "index.html": "/index.html",
+    "main.82f1684e.css.map": "/static/css/main.82f1684e.css.map",
+    "main.8aef58c6.js.map": "/static/js/main.8aef58c6.js.map",
+    "787.d4aba7ab.chunk.js.map": "/static/js/787.d4aba7ab.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.82f1684e.css",
+    "static/js/main.8aef58c6.js"
+>>>>>>> 5e7a04639f9b80e25098ce60e5e946feefc4ef25
+  ]
+}
