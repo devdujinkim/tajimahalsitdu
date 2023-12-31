@@ -1,0 +1,119 @@
+body {
+  background-color:dimgray;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color:dimgray;
+  padding: 20px;
+  text-align: center;
+}
+  
+.App-main {
+  padding: 20px;
+}
+
+.Login {
+  background-color:rgba(161, 147, 147, 0.622);
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  align-self: center;
+}
+
+.Login input {
+  margin: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  width: 200px;
+}
+
+.File-operations {
+  margin: auto;
+  padding: 20px;
+  max-width: 300px;
+  
+}
+
+.File-operations .buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.File-list div {
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.File-list div:hover {
+  text-decoration: underline;
+}
+
+/* ... 기존 스타일링 */
+
+.File-item {
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.File-item.selected {
+  color: blue;
+  font-weight: bold;
+}
+
+.File-item:hover {
+  text-decoration: underline;
+}
+
+/* 공통 버튼 스타일 */
+.button-style {
+  background-color: #4CAF50; /* 녹색 배경 */
+  color: white;
+  padding: 15px 20px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button-style:hover {
+  background-color: #45a049;
+}
+/* 파일 업로드 라벨 스타일 */
+.File-operations label {
+  /* 라벨에 공통 버튼 스타일 적용 */
+  display: inline-block;
+  cursor: pointer;
+  /* 추가 스타일링 */
+}
+/* 파일 업로드 버튼 스타일 */
+.File-operations input[type="file"] {
+  background-color: #4CAF50; /* 녹색 배경 */
+  color: white;
+  padding: 15px 20px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+/* 파일 업로드 라벨 스타일 */
+.File-operations label {
+  /* 라벨에 공통 버튼 스타일 적용 */
+  display: inline-block;
+  cursor: pointer;
+  /* 추가 스타일링 */
+}
