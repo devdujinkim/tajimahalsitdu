@@ -9,7 +9,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [fileList, setFileList] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
-  const apiURL = "https://dudu-env.eba-ar3sx3j2.eu-west-1.elasticbeanstalk.com";
+  const apiURL = "http://dudu-env.eba-ar3sx3j2.eu-west-1.elasticbeanstalk.com";
   
  // const apiURL = process.env.REACT_APP_API_URL;
   const handleFileSelect = (fileName) => {
