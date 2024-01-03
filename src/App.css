@@ -117,3 +117,16 @@ body {
   cursor: pointer;
   /* 추가 스타일링 */
 }
+/* App.css 파일 또는 해당하는 스타일 파일에 추가 */
+@media only screen and (max-width: 600px) {
+  /* 모바일 화면에 대한 스타일 지정 */
+  .Login input,
+  .File-operations input {
+    width: 80%; /* 예시로 너비 조절 */
+    margin-bottom: 10px; /* 예시로 마진 조절 */
+  }
+
+  .button-style {
+    font-size: 16px; /* 예시로 버튼 폰트 사이즈 조절 */
+  }
+}
