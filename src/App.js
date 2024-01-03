@@ -87,7 +87,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>타지마할 싯두</h1>
+        <h1>Tajimahal Sitdu</h1>
       </header>
       <main className="App-main">
         {!isLoggedIn ? (
