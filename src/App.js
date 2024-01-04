@@ -72,7 +72,7 @@ function App() {
     }
   };  
   const fetchRandomImage = () => {
-    fetch('http://localhost:3000/random-image') 
+    fetch('https://api.unsplash.com/photos/random?548382=pveOrULpT7d_nnbNnQy3Pzh9NPbCbchPVehYH06eoe8') 
       .then(response => response.json())
       .then(data => {
         document.body.style.backgroundImage = `url(${data.urls.full})`;
