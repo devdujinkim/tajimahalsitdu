@@ -10,8 +10,12 @@ function App() {
 
   useEffect(() => {
     fetchFileList();
-    fetchRandomImage(); 
   }, [selectedFile]);
+  
+  useEffect(() => {
+    fetchRandomImage(); 
+  }, []); 
+  
 
   const fetchFileList = async () => {
     try {
