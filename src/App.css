@@ -7,13 +7,18 @@ body {
   align-items: center;
   height: 100vh;
 }
+.App-header,
+.File-list div {
+  color: white;
+  text-shadow: 2px 2px 4px #000000; /* 검은색 그림자 추가 */
+}
 
 .App {
   text-align: center;
 }
 
 .App-header {
-  background-color:dimgray;
+  background-color: transparent;
   padding: 20px;
   text-align: center;
 }
