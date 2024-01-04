@@ -72,17 +72,26 @@ function App() {
     }
   };  
   const fetchRandomImage = () => {
-    fetch('https://api.unsplash.com/photos/random?548382=pveOrULpT7d_nnbNnQy3Pzh9NPbCbchPVehYH06eoe8') 
-      .then(response => response.json())
+    fetch('https://api.unsplash.com/photos/random?client_id=pveOrULpT7d_nnbNnQy3Pzh9NPbCbchPVehYH06eoe8') 
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
       .then(data => {
-        document.body.style.backgroundImage = `url(${data.urls.full})`;
+        // data 객체에서 urls.full 속성을 안전하게 접근
+        if (data && data.urls && data.urls.full) {
+          document.body.style.backgroundImage = `url(${data.urls.full})`;
+        } else {
+          throw new Error('Invalid data structure from Unsplash API');
+        }
       })
       .catch(error => {
         console.error('Error:', error);
       });
-  }
+  };
   
-  document.addEventListener('DOMContentLoaded', fetchRandomImage);
   
   return (
     <div className="App">

@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/tajimahalsitdu/static/css/main.6333b12e.css",
-    "main.js": "/tajimahalsitdu/static/js/main.dd7e3d0f.js",
+    "main.js": "/tajimahalsitdu/static/js/main.4008fc3e.js",
     "static/js/787.d4aba7ab.chunk.js": "/tajimahalsitdu/static/js/787.d4aba7ab.chunk.js",
     "index.html": "/tajimahalsitdu/index.html",
     "main.6333b12e.css.map": "/tajimahalsitdu/static/css/main.6333b12e.css.map",
-    "main.dd7e3d0f.js.map": "/tajimahalsitdu/static/js/main.dd7e3d0f.js.map",
+    "main.4008fc3e.js.map": "/tajimahalsitdu/static/js/main.4008fc3e.js.map",
     "787.d4aba7ab.chunk.js.map": "/tajimahalsitdu/static/js/787.d4aba7ab.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6333b12e.css",
-    "static/js/main.dd7e3d0f.js"
+    "static/js/main.4008fc3e.js"
   ]
 }
