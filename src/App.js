@@ -71,8 +71,9 @@ function App() {
       setError(error.message);
     }
   };  
+
   const fetchRandomImage = () => {
-    fetch('/random-image') 
+    fetch(`${apiURL}/random-image`) 
      .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
