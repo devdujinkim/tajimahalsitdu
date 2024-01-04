@@ -72,7 +72,7 @@ function App() {
     }
   };  
   const fetchRandomImage = () => {
-    fetch('https://api.unsplash.com/photos/random?client_id=pveOrULpT7d_nnbNnQy3Pzh9NPbCbchPVehYH06eoe8') 
+    fetch('https://api.unsplash.com/photos/random?collections=70092728&client_id=pveOrULpT7d_nnbNnQy3Pzh9NPbCbchPVehYH06eoe8') 
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
