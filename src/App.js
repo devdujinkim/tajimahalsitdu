@@ -70,7 +70,19 @@ function App() {
       setError(error.message);
     }
   };  
-
+  const fetchRandomImage = () => {
+    fetch('http://localhost:3000/random-image') 
+      .then(response => response.json())
+      .then(data => {
+        document.body.style.backgroundImage = `url(${data.urls.full})`;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }
+  
+  document.addEventListener('DOMContentLoaded', fetchRandomImage);
+  
   return (
     <div className="App">
       <header className="App-header">
