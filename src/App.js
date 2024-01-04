@@ -72,8 +72,8 @@ function App() {
     }
   };  
   const fetchRandomImage = () => {
-    fetch('https://api.unsplash.com/photos/random?collections=70092728&client_id=pveOrULpT7d_nnbNnQy3Pzh9NPbCbchPVehYH06eoe8')
-      .then(response => {
+    fetch('/random-image') 
+     .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -81,15 +81,13 @@ function App() {
       })
       .then(data => {
         if (data && data.urls && data.urls.regular) {
-          // `regular` 대신 필요에 따라 `full` 또는 `raw`를 사용할 수 있습니다.
           const imageUrl = data.urls.regular;
   
-          // 여기에서 배경 이미지를 동적으로 설정합니다.
           document.body.style.backgroundImage = `url('${imageUrl}')`;
           document.body.style.backgroundPosition = 'center center';
           document.body.style.backgroundRepeat = 'no-repeat';
           document.body.style.backgroundAttachment = 'fixed';
-          document.body.style.backgroundSize = 'cover'; // 'contain'을 사용해도 됩니다.
+          document.body.style.backgroundSize = 'cover'; 
         } else {
           throw new Error('Invalid data structure from Unsplash API');
         }
