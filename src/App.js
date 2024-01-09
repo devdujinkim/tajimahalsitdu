@@ -9,7 +9,7 @@ function App() {
   const [fileList, setFileList] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   const [error, setError] = useState(null);
-  const apiURL = "https://www.tajimahalsitdu.it";
+  const apiURL = "https://tajimahalsitdu.it";
 
 
   useEffect(() => {
@@ -111,7 +111,7 @@ function App() {
   
     const handleFormatClick = async () => {
       try {
-        const response = await fetch('https://www.tajimahalsitdu.it/format-sql', {
+        const response = await fetch('https://tajimahalsitdu.it/format-sql', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
