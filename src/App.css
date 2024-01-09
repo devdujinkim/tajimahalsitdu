@@ -86,7 +86,7 @@ body {
 
 /* 공통 버튼 스타일 */
 .button-style {
-  background-color: #4CAF50; /* 녹색 배경 */
+  background-color: transparent; /* 녹색 배경 */
   color: white;
   padding: 15px 20px;
   margin: 10px 0;
@@ -96,7 +96,7 @@ body {
 }
 
 .button-style:hover {
-  background-color: #45a049;
+  background-color: transparent;
 }
 /* 파일 업로드 라벨 스타일 */
 .File-operations label {
@@ -107,7 +107,7 @@ body {
 }
 /* 파일 업로드 버튼 스타일 */
 .File-operations input[type="file"] {
-  background-color: #4CAF50; /* 녹색 배경 */
+  background-color: transparent;
   color: white;
   padding: 15px 20px;
   margin: 10px 0;
