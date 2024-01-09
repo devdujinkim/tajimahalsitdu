@@ -1,17 +1,20 @@
 {
   "name": "my-app",
   "version": "0.1.0",
-  "homepage": "https://devdujinkim.github.io/tajimahalsitdu/",
+  "homepage": "https://tajimahalsitdu.it",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "aws-sdk": "^2.1512.0",
+    "prettier": "^3.1.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.2",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "react-scroll": "^1.9.0",
+    "sql-formatter": "^15.0.2",
     "unsplash-js": "^7.0.19",
     "web-vitals": "^2.1.4"
   },

@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Button from 'react-bootstrap/Button';
+import { Link } from "react-scroll";
+import prettier from "prettier";
+import parserBabel from "prettier/parser-babel";
 
 function App() {
   const [fileList, setFileList] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   const [error, setError] = useState(null);
   const apiURL = "https://www.tajimahalsitdu.it";
+
 
   useEffect(() => {
     fetchFileList();
@@ -102,11 +106,47 @@ function App() {
       });
   };
   
+  const CodeFormatter = () => {
+    const [code, setCode] = useState("");
+  
+    const handleFormatClick = async () => {
+      try {
+        const response = await fetch('https://www.tajimahalsitdu.it/format-sql', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ sql: code }),
+        });
+        const data = await response.json();
+        if (response.ok) {
+          setCode(data.formattedSQL);
+        } else {
+          throw new Error(data.error);
+        }
+      } catch (error) {
+        console.error('Formatting failed:', error);
+      }
+    };
+  
+    return (
+      <div id="code-formatter">
+        <textarea value={code} onChange={(e) => setCode(e.target.value)} />
+        <button onClick={handleFormatClick}>Format Code</button>
+      </div>
+    );
+  };
+
+
   return (
     <div className="App">
       <header className="App-header">
         <h1>Tajimahal Sitdu</h1>
       </header>
+      <div className="nav-links">
+  <Link to="File-list" smooth={true} duration={500}>Download</Link><br></br>
+  <Link to="code-formatter" smooth={true} duration={500}>Code Formatter</Link>
+</div>
       <main className="App-main">
         <div className="File-operations">
           <div className="File-list">
@@ -126,6 +166,7 @@ function App() {
           </Button>
           {error && <div className="error">{error}</div>}
         </div>
+        <CodeFormatter />
       </main>
       <footer className="App-footer">
         <p></p>
