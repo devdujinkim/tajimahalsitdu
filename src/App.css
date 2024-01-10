@@ -124,12 +124,12 @@ body {
   /* 추가 스타일링 */
 }
 .nav-links {
-  position: static; 
-  right: 0; 
-  top: 0; 
-  transform: none; 
-  text-align: center; 
-  z-index: 1000; 
+  position: fixed; 
+  right: 10px; 
+  top: 10px; 
+  color: white; 
+  text-shadow: 2px 2px 4px #000000; 
+  z-index: 10; 
 }
 
 .textarea-code {
@@ -147,6 +147,12 @@ body {
   .File-operations, .Login, .App-main, .File-list div, .File-item, .button-style, .File-operations input[type="file"], #code-formatter textarea {
     max-width: 100%; /* 변경된 부분 */
     box-sizing: border-box;
+  }
+
+  .nav-links {
+    position: static; /* 고정 위치 해제 */
+    margin-bottom: 20px; /* 아래 여백 추가 */
+    text-align: center; /* 글자 중앙 정렬 */
   }
 
   #code-formatter textarea {
