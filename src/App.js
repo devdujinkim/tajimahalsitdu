@@ -28,6 +28,12 @@ function App() {
         throw new Error('File list fetch failed');
       }
       const files = await response.json();
+
+      const filteredFiles = files
+        .filter(file => file !== 'upload/')
+        .map(file => file.replace('upload/', ''));
+
+        
       setFileList(files);
       setError(null);
     } catch (error) {
