@@ -5,7 +5,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 100%;
+  background-attachment: scroll; 
 }
 .App-header,
 .File-list div {
@@ -123,13 +124,12 @@ body {
   /* 추가 스타일링 */
 }
 .nav-links {
-  position: fixed;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: white;
-  text-shadow: 2px 2px 4px #000000;
-  z-index: 1000; /* 추가: 다른 요소 위에 표시 */
+  position: static; 
+  right: 0; 
+  top: 0; 
+  transform: none; 
+  text-align: center; 
+  z-index: 1000; 
 }
 
 .textarea-code {
@@ -143,26 +143,19 @@ body {
   height: 400px; /* 높이를 300픽셀로 설정 */
 }
 
-@media (max-width: 768px) { /* 모바일 뷰포트를 위한 미디어 쿼리 */
-  .nav-links {
-    position: static; /* 모바일 화면에서는 고정 위치 사용 안 함 */
-    transform: none;
-    text-align: center;
-  }
-
-  .File-operations,
-  .Login,
-  .App-main,
-  .File-list div,
-  .File-item,
-  .button-style,
-  .File-operations input[type="file"],
-  #code-formatter textarea {
-    max-width: 100%; /* 모바일 화면에 맞게 최대 너비 설정 */
-    box-sizing: border-box; /* 패딩과 테두리가 너비에 포함되도록 설정 */
+@media (max-width: 768px) {
+  .File-operations, .Login, .App-main, .File-list div, .File-item, .button-style, .File-operations input[type="file"], #code-formatter textarea {
+    max-width: 100%; /* 변경된 부분 */
+    box-sizing: border-box;
   }
 
   #code-formatter textarea {
-    height: 200px; /* 모바일 화면에 맞는 높이로 조정 */
+    height: 200px; /* 변경된 부분 */
+  }
+
+  /* 추가된 스타일링 */
+  body, .App-header, .App-main, .Login, .File-operations {
+    flex-direction: column; /* 변경된 부분 */
+    align-items: stretch; /* 변경된 부분 */
   }
 }
