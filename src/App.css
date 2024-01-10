@@ -125,9 +125,11 @@ body {
 }
 .nav-links {
   position: absolute; /* 고정 위치를 absolute로 변경 */
-  top: 10px; /* 위에서부터의 거리 */
+  top: 50%; /* 중앙 정렬을 위해 변경 */
   right: 10px; /* 오른쪽에서부터의 거리 */
+  transform: translateY(-50%); /* 세로 중앙 정렬을 위해 추가 */
   z-index: 1000; /* 다른 요소 위에 표시되도록 z-index 설정 */
+  color: white; /* 글씨 색상 하얀색으로 변경 */
 }
 
 .textarea-code {

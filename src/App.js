@@ -10,6 +10,7 @@ function App() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [error, setError] = useState(null);
   const apiURL = "https://api.tajimahalsitdu.it";
+  const [uploadedFileName, setUploadedFileName] = useState(""); // State to keep track of the uploaded file name
 
 
   useEffect(() => {
@@ -62,7 +63,13 @@ function App() {
 
   const handleFileUpload = async (event) => {
     const file = event.target.files[0];
-    if (!file) return;
+
+    if (file) {
+    setUploadedFileName(file.name);
+    }
+    else{
+      setUploadedFileName("");
+    }
 
     const formData = new FormData();
     formData.append('file', file);
@@ -168,7 +175,15 @@ function App() {
               </div>
             ))}
           </div>
-          <input id="file-upload" type="file" onChange={handleFileUpload} />
+          <label htmlFor="file-upload" className="button-style">
+      {uploadedFileName || "Upload"}
+    </label>
+    <input 
+      id="file-upload" 
+      type="file" 
+      onChange={handleFileUpload} 
+      style={{ display: 'none' }} // 실제 input은 숨김 처리
+    />
           <Button className="button-style" onClick={handleDownload}>
             Download Selected File
           </Button>
