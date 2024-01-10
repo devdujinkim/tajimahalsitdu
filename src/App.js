@@ -150,6 +150,7 @@ function App() {
         <h1>Tajimahal Sitdu</h1>
       </header>
       <div className="nav-links">
+      <Link to="home" smooth={true} duration={500}>Home</Link><br></br>
   <Link to="File-list" smooth={true} duration={500}>Download</Link><br></br>
   <Link to="code-formatter" smooth={true} duration={500}>Code Formatter</Link>
 </div>
