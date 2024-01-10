@@ -146,14 +146,15 @@ function App() {
 
   return (
     <div className="App">
+    <div id="home"></div>
       <header className="App-header">
         <h1>Tajimahal Sitdu</h1>
       </header>
       <div className="nav-links">
       <Link to="home" smooth={true} duration={500}>Home</Link><br></br>
-  <Link to="File-list" smooth={true} duration={500}>Download</Link><br></br>
-  <Link to="code-formatter" smooth={true} duration={500}>Code Formatter</Link>
-</div>
+      <Link to="File-list" smooth={true} duration={500}>Download</Link><br></br>
+      <Link to="code-formatter" smooth={true} duration={500}>Code Formatter</Link>
+      </div>
       <main className="App-main">
         <div className="File-operations">
           <div className="File-list">
