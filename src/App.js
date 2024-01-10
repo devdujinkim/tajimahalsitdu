@@ -33,8 +33,8 @@ function App() {
         .filter(file => file !== 'upload/')
         .map(file => file.replace('upload/', ''));
 
-        
-      setFileList(files);
+
+      setFileList(filteredFiles);
       setError(null);
     } catch (error) {
       console.error('Error fetching file list:', error);
