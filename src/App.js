@@ -16,14 +16,16 @@ function App() {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
-  const verifyPassword = async () => {
+
+  
+  const verifyPassword = async (inputPassword) => {
     try {
       const response = await fetch(`${apiURL}/verify-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({ password: inputPassword }),
       });
       const data = await response.json();
       return data.isValid;
@@ -32,6 +34,8 @@ function App() {
       return false;
     }
   };
+
+
   useEffect(() => {
     fetchFileList();
   }, [selectedFile]);
