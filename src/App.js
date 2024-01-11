@@ -17,7 +17,7 @@ function App() {
     setPassword(e.target.value);
   };
 
-  
+
   const verifyPassword = async (inputPassword) => {
     try {
       const response = await fetch(`${apiURL}/verify-password`, {
@@ -86,7 +86,6 @@ function App() {
       if (confirmDownload) {
         const fileName = selectedFile.replace('upload/', '');
         const downloadUrl = `${apiURL}/download/${fileName}`;
-        window.open(downloadUrl, '_blank');
       }
     } else {
       alert('Password required for downloading files.');
