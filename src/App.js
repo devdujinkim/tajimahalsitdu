@@ -11,8 +11,27 @@ function App() {
   const [error, setError] = useState(null);
   const apiURL = "https://api.tajimahalsitdu.it";
   const [uploadedFileName, setUploadedFileName] = useState(""); // State to keep track of the uploaded file name
+  const [password, setPassword] = useState("");
 
-
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+  const verifyPassword = async () => {
+    try {
+      const response = await fetch(`${apiURL}/verify-password`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password }),
+      });
+      const data = await response.json();
+      return data.isValid;
+    } catch (error) {
+      console.error('Error verifying password:', error);
+      return false;
+    }
+  };
   useEffect(() => {
     fetchFileList();
   }, [selectedFile]);
@@ -48,6 +67,11 @@ function App() {
   };
 
   const handleDownload = async () => {
+    const isPasswordValid = await verifyPassword();
+    if (!isPasswordValid) {
+      alert('Invalid password');
+      return;
+    }
     if (!selectedFile) {
       alert('파일을 선택해주세요.');
       return;
@@ -62,6 +86,12 @@ function App() {
   };
 
   const handleFileUpload = async (event) => {
+    const isPasswordValid = await verifyPassword();
+    if (!isPasswordValid) {
+      alert('Invalid password');
+      return;
+    }
+
     const file = event.target.files[0];
 
     if (file) {
@@ -191,6 +221,9 @@ function App() {
         </div>
         <CodeFormatter />
       </main>
+      <div className="Password-input">
+      <input type="password" value={password} onChange={handlePasswordChange} />
+      </div>
       <footer className="App-footer">
         <p></p>
       </footer>
