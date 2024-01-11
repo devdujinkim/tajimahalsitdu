@@ -67,61 +67,60 @@ function App() {
   };
 
   const handleDownload = async () => {
-    const isPasswordValid = await verifyPassword();
-    if (!isPasswordValid) {
-      alert('Invalid password');
-      return;
-    }
-    if (!selectedFile) {
-      alert('파일을 선택해주세요.');
-      return;
-    }
-
-    const confirmDownload = window.confirm(`${selectedFile} Would you like to download the file?`);
-    if (confirmDownload) {
-      const fileName = selectedFile.replace('upload/', '');
-      const downloadUrl = `${apiURL}/download/${fileName}`;
-      window.open(downloadUrl, '_blank');
+    const passwordInput = prompt("Please enter the password:");
+    if (passwordInput) {
+      const isPasswordValid = await verifyPassword(passwordInput);
+      if (!isPasswordValid) {
+        alert('Invalid password');
+        return;
+      }
+      if (!selectedFile) {
+        alert('Please select a file.');
+        return;
+      }
+      const confirmDownload = window.confirm(`Would you like to download the file: ${selectedFile}?`);
+      if (confirmDownload) {
+        const fileName = selectedFile.replace('upload/', '');
+        const downloadUrl = `${apiURL}/download/${fileName}`;
+        window.open(downloadUrl, '_blank');
+      }
+    } else {
+      alert('Password required for downloading files.');
     }
   };
 
   const handleFileUpload = async (event) => {
-    const isPasswordValid = await verifyPassword();
-    if (!isPasswordValid) {
-      alert('Invalid password');
-      return;
-    }
-
-    const file = event.target.files[0];
-
-    if (file) {
-    setUploadedFileName(file.name);
-    }
-    else{
-      setUploadedFileName("");
-    }
-
-    const formData = new FormData();
-    formData.append('file', file);
-
-    try {
-      const response = await fetch(`${apiURL}/upload`, {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error('File upload failed');
+    const passwordInput = prompt("Please enter the password:");
+    if (passwordInput) {
+      const isPasswordValid = await verifyPassword(passwordInput);
+      if (!isPasswordValid) {
+        alert('Invalid password');
+        return;
       }
-
-      await response.json();
-      console.log('File uploaded successfully');
-      fetchFileList();
-    } catch (error) {
-      console.error('Error:', error);
-      setError(error.message);
+      const file = event.target.files[0];
+      if (file) {
+        const formData = new FormData();
+        formData.append('file', file);
+        try {
+          const response = await fetch(`${apiURL}/upload`, {
+            method: 'POST',
+            body: formData,
+          });
+          if (!response.ok) {
+            throw new Error('File upload failed');
+          }
+          await response.json();
+          console.log('File uploaded successfully');
+          fetchFileList();
+        } catch (error) {
+          console.error('Error:', error);
+          setError(error.message);
+        }
+      }
+    } else {
+      alert('Password required for uploading files.');
     }
-  };  
+  };
 
   const fetchRandomImage = () => {
     fetch(`${apiURL}/random-image`) 
