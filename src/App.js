@@ -86,7 +86,12 @@ function App() {
       if (confirmDownload) {
         const fileName = selectedFile.replace('upload/', '');
         const downloadUrl = `${apiURL}/download/${fileName}`;
-        window.open(downloadUrl, '_blank');
+        var a = document.createElement("a");
+      a.href = downloadUrl;
+      a.download = fileName.split('/').pop(); // Set the file name for download
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
       }
     } else {
       alert('Password required for downloading files.');
