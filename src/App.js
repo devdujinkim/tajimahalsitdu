@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Button from 'react-bootstrap/Button';
-import { Link } from "react-scroll";
-import prettier from "prettier";
-import parserBabel from "prettier/parser-babel";
+import NavBar from './NavBar'; 
+
 
 function App() {
   const [fileList, setFileList] = useState([]);
@@ -191,15 +190,13 @@ function App() {
 
   return (
     <div className="App">
+       <NavBar /> {
+        
+       }
     <div id="home"></div>
       <header className="App-header">
         <h1>Tajimahal Sitdu</h1>
       </header>
-      <div className="nav-links">
-      <Link to="home" smooth={true} duration={500}>Home</Link><br></br>
-      <Link to="File-list" smooth={true} duration={500}>Download</Link><br></br>
-      <Link to="code-formatter" smooth={true} duration={500}>Code Formatter</Link>
-      </div>
       <main className="App-main">
         <div className="File-operations">
           <div className="File-list">
@@ -229,9 +226,6 @@ function App() {
         </div>
         <CodeFormatter />
       </main>
-      <div className="Password-input">
-      <input type="password" value={password} onChange={handlePasswordChange} />
-      </div>
       <footer className="App-footer">
         <p></p>
       </footer>

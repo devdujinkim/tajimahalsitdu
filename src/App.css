@@ -46,6 +46,15 @@ body {
   border-radius: 5px;
   width: 200px;
 }
+.Login input, .File-operations input[type="file"] {
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
+  transition: box-shadow 0.3s;
+}
+
+.Login input:focus, .File-operations input[type="file"]:hover {
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5); /* 포커스 또는 호버시 그림자 강조 */
+}
+
 
 .File-operations {
   margin: auto;
@@ -130,6 +139,8 @@ body {
   transform: translateY(-50%); /* 세로 중앙 정렬을 위해 추가 */
   z-index: 1000; /* 다른 요소 위에 표시되도록 z-index 설정 */
   color: white; /* 글씨 색상 하얀색으로 변경 */
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .textarea-code {
@@ -143,24 +154,78 @@ body {
   height: 400px; /* 높이를 300픽셀로 설정 */
 }
 
+/* ... 기존 스타일 */
+
 @media (max-width: 768px) {
-  .File-operations, .Login, .App-main, .File-list div, .File-item, .button-style, .File-operations input[type="file"], #code-formatter textarea {
-    max-width: 100%; /* 변경된 부분 */
-    box-sizing: border-box;
-  }
-
   .nav-links {
-    position: static; /* 모바일 화면에서는 고정 위치를 사용하지 않음 */
-    margin-bottom: 20px; /* 네비게이션 링크 아래 여백 추가 */
+    position: fixed; /* 모바일 화면에서도 네비게이션을 고정 */
+    top: 50%; /* 상단으로부터 50% */
+    right: 0; /* 오른쪽 정렬 */
+    transform: translateY(-50%); /* 세로 중앙 정렬 */
+    z-index: 1000; /* 다른 요소 위에 표시 */
+  }
+  
+  .button-style, .nav-links a {
+    /* 모바일 화면에서 버튼 및 네비게이션 링크 스타일 */
+    font-size: 14px; /* 글씨 크기 조정 */
   }
 
-  #code-formatter textarea {
-    height: 200px; /* 변경된 부분 */
+  .input-field, .button, .File-operations input[type="file"] {
+    /* 모바일 화면에서 입력 필드 및 버튼 스타일 */
+    padding: 8px 10px; /* 내부 여백 조정 */
   }
 
-  /* 추가된 스타일링 */
-  body, .App-header, .App-main, .Login, .File-operations {
-    flex-direction: column; /* 변경된 부분 */
-    align-items: stretch; /* 변경된 부분 */
-  }
+}
+
+/* 모바일 화면에서 전체적인 레이아웃 조정 */
+body, .App-header, .App-main, .Login, .File-operations, #code-formatter textarea {
+  /* 화면 너비에 맞추어 요소들이 스택되도록 변경 */
+  flex-direction: column;
+  align-items: stretch;
+  padding: 10px; /* 여백 조정 */
+  box-sizing: border-box; /* 너비 계산 방식 변경 */
+}
+
+
+.button-style, .nav-links a {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.button-style:hover, .nav-links a:hover {
+  background-color: #4a5568; /* 새로운 호버 색상 */
+  color: #ffffff;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body, input, button {
+  font-family: 'Roboto', sans-serif;
+}
+.input-field {
+  border: 1px solid #ddd; /* 경계선을 미묘하게 */
+  border-radius: 4px; /* 약간 둥근 모서리 */
+  padding: 12px 15px; /* 내부 여백 */
+  margin: 10px 0; /* 요소 간 간격 */
+  width: 100%; /* 전체 너비 */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 상자 그림자 */
+  transition: all 0.3s; /* 부드러운 전환 효과 */
+}
+
+.input-field:focus {
+  border-color: #a2a2a2; /* 포커스 될 때 변경될 경계선 색상 */
+  box-shadow: 0 0 8px rgba(0,0,0,0.2); /* 포커스 될 때 변경될 상자 그림자 */
+}
+
+.button {
+  background-color: #5C6BC0; /* 버튼 배경 색상 */
+  color: white; /* 버튼 내부 텍스트 색상 */
+  padding: 10px 20px; /* 버튼 내부 여백 */
+  border: none; /* 경계선 없음 */
+  border-radius: 4px; /* 약간 둥근 모서리 */
+  cursor: pointer; /* 클릭 가능한 요소임을 나타내는 커서 */
+  transition: background-color 0.3s; /* 색상 변화에 대한 부드러운 전환 효과 */
+}
+
+.button:hover {
+  background-color: #3949AB; /* 호버 시 버튼 배경 색상 변경 */
 }
