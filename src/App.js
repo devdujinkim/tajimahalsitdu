@@ -9,13 +9,9 @@ function App() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [error, setError] = useState(null);
   const apiURL = "https://api.tajimahalsitdu.it";
-  const [uploadedFileName, setUploadedFileName] = useState(""); // State to keep track of the uploaded file name
-  const [password, setPassword] = useState("");
+  const [uploadedFileName, ] = useState(""); // State to keep track of the uploaded file name
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
+ 
 
   const verifyPassword = async (inputPassword) => {
     try {
