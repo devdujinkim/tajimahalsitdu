@@ -11,6 +11,10 @@ function App() {
   const apiURL = "https://api.tajimahalsitdu.it";
   const [uploadedFileName, ] = useState(""); // State to keep track of the uploaded file name
   const backgroundImage = process.env.PUBLIC_URL + '/te.png';
+
+  const style = {
+    backgroundImage: `url(${backgroundImage})`
+  };
   
   const handleDelete = async () => {
     if (!selectedFile) {
@@ -213,7 +217,7 @@ function App() {
 
 
   return (
-    <div className="App">
+    <div className="App" style={style}>
        <NavBar /> {
         
        }
