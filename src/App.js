@@ -10,8 +10,37 @@ function App() {
   const [error, setError] = useState(null);
   const apiURL = "https://api.tajimahalsitdu.it";
   const [uploadedFileName, ] = useState(""); // State to keep track of the uploaded file name
-
- 
+  //const backgroundImage = process.env.PUBLIC_URL + '/te.png';
+  const backgroundImage = 'file:///C:/reactproject/my-app/public/te.png';
+  
+  const handleDelete = async () => {
+    if (!selectedFile) {
+      alert('Please select a file to delete.');
+      return;
+    }
+    const confirmDelete = window.confirm(`Are you sure you want to delete the file: ${selectedFile}?`);
+    if (confirmDelete) {
+      // 파일 삭제 요청을 서버로 전송하는 로직
+      try {
+        const response = await fetch(`${apiURL}/delete-file`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ fileName: selectedFile }),
+        });
+        if (!response.ok) {
+          throw new Error('File deletion failed');
+        }
+        await response.json();
+        console.log('File deleted successfully');
+        fetchFileList(); // 파일 목록을 다시 불러옴
+      } catch (error) {
+        console.error('Error:', error);
+        setError(error.message);
+      }
+    }
+  };
 
   const verifyPassword = async (inputPassword) => {
     try {
@@ -35,9 +64,9 @@ function App() {
     fetchFileList();
   }, [selectedFile]);
   
-  useEffect(() => {
-    fetchRandomImage(); 
-  }, []); 
+  // useEffect(() => {
+  //   fetchRandomImage(); 
+  // }, []); 
   
 
   const fetchFileList = async () => {
@@ -126,31 +155,31 @@ function App() {
     }
   };
 
-  const fetchRandomImage = () => {
-    fetch(`${apiURL}/random-image`) 
-     .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        if (data && data.urls && data.urls.regular) {
-          const imageUrl = data.urls.regular;
+  // const fetchRandomImage = () => {
+  //   fetch(`${apiURL}/random-image`) 
+  //    .then(response => {
+  //       if (!response.ok) {
+  //         throw new Error(`HTTP error! status: ${response.status}`);
+  //       }
+  //       return response.json();
+  //     })
+  //     .then(data => {
+  //       if (data && data.urls && data.urls.regular) {
+  //         const imageUrl = data.urls.regular;
   
-          document.body.style.backgroundImage = `url('${imageUrl}')`;
-          document.body.style.backgroundPosition = 'center center';
-          document.body.style.backgroundRepeat = 'no-repeat';
-          document.body.style.backgroundAttachment = 'fixed';
-          document.body.style.backgroundSize = 'cover'; 
-        } else {
-          throw new Error('Invalid data structure from Unsplash API');
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-  };
+  //         document.body.style.backgroundImage = `url('${imageUrl}')`;
+  //         document.body.style.backgroundPosition = 'center center';
+  //         document.body.style.backgroundRepeat = 'no-repeat';
+  //         document.body.style.backgroundAttachment = 'fixed';
+  //         document.body.style.backgroundSize = 'cover'; 
+  //       } else {
+  //         throw new Error('Invalid data structure from Unsplash API');
+  //       }
+  //     })
+  //     .catch(error => {
+  //       console.error('Error:', error);
+  //     });
+  // };
   
   const CodeFormatter = () => {
     const [code, setCode] = useState("");
@@ -209,6 +238,7 @@ function App() {
           <label htmlFor="file-upload" className="button-style">
       {uploadedFileName || "Upload"}
     </label>
+    <div className="button-container">
     <input 
       id="file-upload" 
       type="file" 
@@ -218,7 +248,11 @@ function App() {
           <Button className="button-style" onClick={handleDownload}>
             Download Selected File
           </Button>
+          <Button className="button-style" onClick={handleDelete}>
+            Delete Selected File
+          </Button>
           {error && <div className="error">{error}</div>}
+        </div>
         </div>
         <CodeFormatter />
       </main>

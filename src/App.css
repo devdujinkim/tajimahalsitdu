@@ -93,7 +93,10 @@ body {
 .File-item:hover {
   text-decoration: underline;
 }
-
+.button-container {
+  display: flex;
+  flex-direction: row;
+}
 /* 공통 버튼 스타일 */
 .button-style {
   background-color: transparent; /* 녹색 배경 */
