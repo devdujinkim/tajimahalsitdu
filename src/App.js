@@ -10,38 +10,45 @@ function App() {
   const [error, setError] = useState(null);
   const apiURL = "https://api.tajimahalsitdu.it";
   const [uploadedFileName, ] = useState(""); // State to keep track of the uploaded file name
-  const backgroundImage = process.env.PUBLIC_URL + '/te.png';
-
-  const style = {
-    backgroundImage: `url(${backgroundImage})`
-  };
-  
   const handleDelete = async () => {
     if (!selectedFile) {
       alert('Please select a file to delete.');
       return;
     }
-    const confirmDelete = window.confirm(`Are you sure you want to delete the file: ${selectedFile}?`);
-    if (confirmDelete) {
-      // 파일 삭제 요청을 서버로 전송하는 로직
-      try {
-        const response = await fetch(`${apiURL}/delete-file`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ fileName: selectedFile }),
-        });
-        if (!response.ok) {
-          throw new Error('File deletion failed');
-        }
-        await response.json();
-        console.log('File deleted successfully');
-        fetchFileList(); // 파일 목록을 다시 불러옴
-      } catch (error) {
-        console.error('Error:', error);
-        setError(error.message);
+    const passwordInput = prompt("Please enter the password:");
+    if (passwordInput) {
+      const isPasswordValid = await verifyPassword(passwordInput);
+      if (!isPasswordValid) {
+        alert('Invalid password');
+        return;
       }
+  
+      const confirmDelete = window.confirm(`Are you sure you want to delete the file: ${selectedFile}?`);
+      if (confirmDelete) {
+        // 파일 삭제 요청을 서버로 전송하는 로직
+        try {
+          const response = await fetch(`${apiURL}/delete-file`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ fileName: selectedFile.replace('upload/', '') }), // 'upload/' 접두사 제거
+          });
+          if (!response.ok) {
+            throw new Error('File deletion failed');
+          }
+          //const responseData = await response.json();
+          //alert(responseData.message); // 성공 메시지를 사용자에게 알림
+          console.log('File deleted successfully');
+          fetchFileList(); // 파일 목록을 다시 불러옴
+        } catch (error) {
+          console.error('Error:', error);
+          setError(error.message);
+          alert('Deletion failed: ' + error.message); // 사용자에게 오류 메시지를 표시
+        }
+      }
+    } else {
+      alert('Password required for deleting files.');
     }
   };
 
@@ -217,7 +224,7 @@ function App() {
 
 
   return (
-    <div className="App" style={style}>
+    <div className="App">
        <NavBar /> {
         
        }
