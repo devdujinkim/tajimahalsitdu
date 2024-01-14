@@ -8,6 +8,12 @@ body {
   min-height: 100%;
   background-attachment: scroll; 
 }
+
+.image-size {
+  width: 400px; /* 원하는 너비로 설정 */
+}
+
+
 .App-header,
 .File-list div {
   color: white;

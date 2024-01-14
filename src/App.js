@@ -230,7 +230,7 @@ function App() {
        }
     <div id="home"></div>
       <header className="App-header">
-        <h1>Tajimahal Sitdu</h1>
+      <img src="/33.png" className="image-size" />
       </header>
       <main className="App-main">
         <div className="File-operations">
