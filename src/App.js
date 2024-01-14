@@ -10,8 +10,7 @@ function App() {
   const [error, setError] = useState(null);
   const apiURL = "https://api.tajimahalsitdu.it";
   const [uploadedFileName, ] = useState(""); // State to keep track of the uploaded file name
-  //const backgroundImage = process.env.PUBLIC_URL + '/te.png';
-  const backgroundImage = 'file:///C:/reactproject/my-app/public/te.png';
+  const backgroundImage = process.env.PUBLIC_URL + '/te.png';
   
   const handleDelete = async () => {
     if (!selectedFile) {
