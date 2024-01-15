@@ -25,8 +25,18 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Tajimahal Sitdu</title>
+    <script>
+      // 이미지에 대한 우클릭 이벤트를 비활성화하는 함수
+      function disableRightClickOnImages() {
+        document.addEventListener('contextmenu', function(e) {
+          if (e.target.nodeName === 'IMG') {
+            e.preventDefault();
+          }
+        });
+      }
+    </script>
   </head>
-  <body>
+  <body onload="disableRightClickOnImages();">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--
