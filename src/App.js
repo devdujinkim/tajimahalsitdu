@@ -9,7 +9,27 @@ function App() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [error, setError] = useState(null);
   const apiURL = "https://api.tajimahalsitdu.it";
-  const [uploadedFileName, ] = useState(""); // State to keep track of the uploaded file name
+  const [uploadedFileName, ] = useState("");
+  const [formatType, setFormatType] = useState('mssql');
+
+
+  const transformInsertData = (code) => {
+    return code.split('\n').map(line => {
+      // 세 개의 공백으로 데이터를 분리
+      const rawElements = line.split(/   +/);
+      const transformed = rawElements.map(el => {
+        // NULL은 그대로 유지하고, 나머지는 따옴표로 감싸줌
+        return el === 'NULL' ? el : `'${el}'`;
+      });
+  
+      return `(${transformed.join(', ')})`;
+    }).join('\n');
+  };
+  
+  
+  
+  
+
   const handleDelete = async () => {
     if (!selectedFile) {
       alert('Please select a file to delete.');
@@ -192,9 +212,11 @@ function App() {
   // };
   
   const CodeFormatter = () => {
+    
     const [code, setCode] = useState("");
   
     const handleFormatClick = async () => {
+      if (formatType === 'mssql') {
       try {
         const response = await fetch('https://api.tajimahalsitdu.it/format-sql', {
           method: 'POST',
@@ -212,6 +234,11 @@ function App() {
       } catch (error) {
         console.error('Formatting failed:', error);
       }
+    }
+    else if (formatType === 'insert') {
+      const transformedCode = transformInsertData(code);
+      setCode(transformedCode);
+    }
     };
   
     return (
@@ -255,6 +282,10 @@ function App() {
       onChange={handleFileUpload} 
       style={{ display: 'none' }} // 실제 input은 숨김 처리
     />
+    <select value={formatType} onChange={e => setFormatType(e.target.value)}>
+        <option value="mssql">MSSQL</option>
+        <option value="insert">Insert</option>
+      </select>
           <Button className="button-style" onClick={handleDownload}>
             Download Selected File
           </Button>
