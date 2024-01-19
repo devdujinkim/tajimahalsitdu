@@ -12,6 +12,24 @@ function App() {
   const [uploadedFileName, ] = useState("");
   const [formatType, setFormatType] = useState('mssql');
 
+  const [logData, setLogData] = useState([]);
+  useEffect(() => {
+    const fetchLogData = async () => {
+      try {
+        const response = await fetch(`${apiURL}/logs`);
+        if (!response.ok) {
+          throw new Error('Log data fetch failed');
+        }
+        const logs = await response.json();
+        setLogData(logs);
+      } catch (error) {
+        console.error('Error fetching log data:', error);
+        setError(error.message);
+      }
+    };
+    
+    fetchLogData();
+  }, []);
 
   const transformInsertData = (code) => {
     return code.split('\n').map(line => {
@@ -296,6 +314,16 @@ function App() {
         </div>
         </div>
         <CodeFormatter />
+        <div className="log-data">
+        <h2>Log Data</h2>
+        <div className="log-list">
+          {logData.map((log, index) => (
+            <div key={index} className="log-item">
+              {log}
+            </div>
+          ))}
+        </div>
+      </div>
       </main>
       <footer className="App-footer">
         <p></p>
