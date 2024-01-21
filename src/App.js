@@ -41,8 +41,7 @@ function App() {
         });
   
         if (response.ok) {
-          // 클라이언트 상태를 초기화하여 로그를 지웁니다.
-          setLogData([]);
+          setTodayLogs("");
           console.log('Logs have been cleared');
         } else {
           alert('Failed to clear logs: ' + response.status);
@@ -58,30 +57,30 @@ function App() {
   
 
   const [logData, setLogData] = useState([]);
-  useEffect(() => {
+
     const fetchLogData = async () => {
       try {
-        const response = await fetch(`${apiURL}/logs`);
+        const response = await fetch(`${apiURL}/today-logs`);
         if (!response.ok) {
-          throw new Error('Log data fetch failed');
+          throw new Error('Today log data fetch failed');
         }
-        const logs = await response.json();
-        setLogData(logs);
+        const logs = await response.text();
+        setTodayLogs(logs); 
       } catch (error) {
-        console.error('Error fetching log data:', error);
+        console.error('Error fetching today logs:', error);
         setError(error.message);
       }
     };
     
-    fetchLogData();
-  }, []);
+
+    useEffect(() => {
+      fetchLogData();
+    }, []); 
 
   const transformInsertData = (code) => {
     return code.split('\n').map(line => {
-      // 세 개의 공백으로 데이터를 분리
       const rawElements = line.split(/   +/);
       const transformed = rawElements.map(el => {
-        // NULL은 그대로 유지하고, 나머지는 따옴표로 감싸줌
         return el === 'NULL' ? el : `'${el}'`;
       });
   
@@ -335,14 +334,6 @@ function App() {
         </div>
         <CodeFormatter />
         <div className="log-data">
-        <h2>Log Data</h2>
-        <div className="log-list">
-          {logData.map((log, index) => (
-            <div key={index} className="log-item">
-              {log}
-            </div>
-          ))}
-        </div>
         <div>
           <h2>Today's Logs</h2>
           <pre>{todayLogs}</pre> {/* 여기에 오늘의 로그 데이터를 표시 */}
