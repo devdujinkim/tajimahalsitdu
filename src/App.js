@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Button from 'react-bootstrap/Button';
 import NavBar from './NavBar'; 
-
+import { debounce } from 'lodash';
 
 function App() {
   const [fileList, setFileList] = useState([]);
@@ -11,6 +11,51 @@ function App() {
   const apiURL = "https://api.tajimahalsitdu.it";
   const [uploadedFileName, ] = useState("");
   const [formatType, setFormatType] = useState('mssql');
+
+  const [todayLogs, setTodayLogs] = useState(""); 
+
+  const fetchTodayLogs = debounce(async () => {
+    try {
+      const response = await fetch(`${apiURL}/today-logs`);
+      const logs = await response.text();
+      setTodayLogs(logs);
+    } catch (error) {
+      console.error('Error fetching today logs:', error);
+      setError(error.message);
+    }
+  }, 2000);
+  useEffect(() => {
+    fetchTodayLogs();
+  }, []);
+
+  const handleClearLogs = async () => {
+    const password = prompt("Please enter the password to clear logs:");
+    if (password) {
+      try {
+        const response = await fetch(`${apiURL}/clear-logs`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ password }),
+        });
+  
+        if (response.ok) {
+          // 클라이언트 상태를 초기화하여 로그를 지웁니다.
+          setLogData([]);
+          console.log('Logs have been cleared');
+        } else {
+          alert('Failed to clear logs: ' + response.status);
+        }
+      } catch (error) {
+        console.error('Error when trying to clear logs:', error);
+        alert('Error when trying to clear logs: ' + error);
+      }
+    } else {
+      alert('Password is required to clear logs');
+    }
+  };
+  
 
   const [logData, setLogData] = useState([]);
   useEffect(() => {
@@ -201,33 +246,8 @@ function App() {
     } else {
       alert('Password required for uploading files.');
     }
-  };
+  }
 
-  // const fetchRandomImage = () => {
-  //   fetch(`${apiURL}/random-image`) 
-  //    .then(response => {
-  //       if (!response.ok) {
-  //         throw new Error(`HTTP error! status: ${response.status}`);
-  //       }
-  //       return response.json();
-  //     })
-  //     .then(data => {
-  //       if (data && data.urls && data.urls.regular) {
-  //         const imageUrl = data.urls.regular;
-  
-  //         document.body.style.backgroundImage = `url('${imageUrl}')`;
-  //         document.body.style.backgroundPosition = 'center center';
-  //         document.body.style.backgroundRepeat = 'no-repeat';
-  //         document.body.style.backgroundAttachment = 'fixed';
-  //         document.body.style.backgroundSize = 'cover'; 
-  //       } else {
-  //         throw new Error('Invalid data structure from Unsplash API');
-  //       }
-  //     })
-  //     .catch(error => {
-  //       console.error('Error:', error);
-  //     });
-  // };
   
   const CodeFormatter = () => {
     
@@ -323,10 +343,15 @@ function App() {
             </div>
           ))}
         </div>
+        <div>
+          <h2>Today's Logs</h2>
+          <pre>{todayLogs}</pre> {/* 여기에 오늘의 로그 데이터를 표시 */}
+        </div>
       </div>
       </main>
       <footer className="App-footer">
         <p></p>
+        <Button onClick={handleClearLogs}>Clear</Button>
       </footer>
     </div>
   );

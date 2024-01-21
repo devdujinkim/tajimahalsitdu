@@ -113,7 +113,12 @@ body {
   border-radius: 5px;
   cursor: pointer;
 }
+.log-data,
+.log-log-list{
+  color: white;
+  text-shadow: 2px 2px 4px #000000; /* 검은색 그림자 추가 */
 
+}
 .button-style:hover {
   background-color: transparent;
 }
@@ -134,6 +139,7 @@ body {
   border-radius: 5px;
   cursor: pointer;
 }
+
 /* 파일 업로드 라벨 스타일 */
 .File-operations label {
   /* 라벨에 공통 버튼 스타일 적용 */
