@@ -238,3 +238,8 @@ body, input, button {
   background-color: white;
   text-align: left;
 }
+
+.log-data {
+  color: white; /* 텍스트 색상을 흰색으로 변경 */
+}
+
