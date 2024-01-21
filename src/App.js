@@ -55,6 +55,22 @@ function App() {
     }
   };
   
+  function convertLogsToHTML(logs) {
+    return logs.split('\n').map(log => {
+      if (log.includes('Country Flag:')) {
+        const imageUrl = log.split('Country Flag: ')[1].split(', ')[0];
+        const imageHtml = `<img src="${imageUrl}" alt="Country Flag" style="height:20px;">`;
+        return log.replace(`Country Flag: ${imageUrl}`, imageHtml);
+      }
+      return log;
+    }).join('<br>');
+  }
+  
+  useEffect(() => {
+    const htmlLogs = convertLogsToHTML(todayLogs);
+    setTodayLogs(htmlLogs);
+  }, [todayLogs]);
+  
 
   const [logData, setLogData] = useState([]);
 
@@ -336,7 +352,8 @@ function App() {
         <div className="log-data">
         <div>
           <h2>Today's Logs</h2>
-          <pre>{todayLogs}</pre> {/* 여기에 오늘의 로그 데이터를 표시 */}
+          <div dangerouslySetInnerHTML={{ __html: todayLogs }} /> 
+          {/* HTML로 변환된 로그 데이터를 표시 */}
         </div>
       </div>
       </main>
