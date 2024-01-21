@@ -244,3 +244,21 @@ body, input, button {
 .button:hover {
   background-color: #3949AB; /* 호버 시 버튼 배경 색상 변경 */
 }
+
+.split-container {
+  display: flex; /* 왼쪽과 오른쪽 영역을 가로로 나눔 */
+}
+
+.textarea-left {
+  flex: 1; /* 왼쪽 영역이 오른쪽 영역에 비해 확장됨 */
+  margin-right: 10px; /* 왼쪽과 오른쪽 영역 사이의 간격 설정 */
+}
+
+.result-container {
+  flex: 1; /* 오른쪽 영역이 왼쪽 영역에 비해 확장됨 */
+  border: 1px solid #ccc; /* 결과값 영역에 테두리 추가 (선택 사항) */
+  padding: 10px; /* 결과값 영역 내부 여백 추가 (선택 사항) */
+  background-color: white;
+  text-align: left; /* 텍스트를 왼쪽 정렬로 변경 */
+}
+

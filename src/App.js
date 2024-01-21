@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Button from 'react-bootstrap/Button';
-import NavBar from './NavBar'; 
+import NavBar from './NavBar';
 import { debounce } from 'lodash';
 
 function App() {
@@ -10,9 +10,9 @@ function App() {
   const [error, setError] = useState(null);
   const apiURL = "https://api.tajimahalsitdu.it";
   const [uploadedFileName, ] = useState("");
-  const [formatType, setFormatType] = useState('mssql');
+  const [formatType, setFormatType] = useState('insert'); // 기본 포맷 타입을 'insert'로 변경
 
-  const [todayLogs, setTodayLogs] = useState(""); 
+  const [todayLogs, setTodayLogs] = useState("");
 
   const fetchTodayLogs = debounce(async () => {
     try {
@@ -39,7 +39,7 @@ function App() {
           },
           body: JSON.stringify({ password }),
         });
-  
+
         if (response.ok) {
           setTodayLogs("");
           console.log('Logs have been cleared');
@@ -54,7 +54,7 @@ function App() {
       alert('Password is required to clear logs');
     }
   };
-  
+
   function convertLogsToHTML(logs) {
     return logs.split('\n').map(log => {
       if (log.includes('Country Flag:')) {
@@ -65,48 +65,30 @@ function App() {
       return log;
     }).join('<br>');
   }
-  
+
   useEffect(() => {
     const htmlLogs = convertLogsToHTML(todayLogs);
     setTodayLogs(htmlLogs);
   }, [todayLogs]);
-  
 
   const [logData, setLogData] = useState([]);
 
-    const fetchLogData = async () => {
-      try {
-        const response = await fetch(`${apiURL}/today-logs`);
-        if (!response.ok) {
-          throw new Error('Today log data fetch failed');
-        }
-        const logs = await response.text();
-        setTodayLogs(logs); 
-      } catch (error) {
-        console.error('Error fetching today logs:', error);
-        setError(error.message);
+  const fetchLogData = async () => {
+    try {
+      const response = await fetch(`${apiURL}/today-logs`);
+      if (!response.ok) {
+        throw new Error('Today log data fetch failed');
       }
-    };
-    
-
-    useEffect(() => {
-      fetchLogData();
-    }, []); 
-
-  const transformInsertData = (code) => {
-    return code.split('\n').map(line => {
-      const rawElements = line.split(/   +/);
-      const transformed = rawElements.map(el => {
-        return el === 'NULL' ? el : `'${el}'`;
-      });
-  
-      return `(${transformed.join(', ')})`;
-    }).join('\n');
+      const logs = await response.text();
+    } catch (error) {
+      console.error('Error fetching today logs:', error);
+      setError(error.message);
+    }
   };
-  
-  
-  
-  
+
+  useEffect(() => {
+    fetchLogData();
+  }, []);
 
   const handleDelete = async () => {
     if (!selectedFile) {
@@ -120,7 +102,7 @@ function App() {
         alert('Invalid password');
         return;
       }
-  
+
       const confirmDelete = window.confirm(`Are you sure you want to delete the file: ${selectedFile}?`);
       if (confirmDelete) {
         // 파일 삭제 요청을 서버로 전송하는 로직
@@ -135,14 +117,12 @@ function App() {
           if (!response.ok) {
             throw new Error('File deletion failed');
           }
-          //const responseData = await response.json();
-          //alert(responseData.message); // 성공 메시지를 사용자에게 알림
           console.log('File deleted successfully');
           fetchFileList(); // 파일 목록을 다시 불러옴
         } catch (error) {
           console.error('Error:', error);
           setError(error.message);
-          alert('Deletion failed: ' + error.message); // 사용자에게 오류 메시지를 표시
+          alert('Deletion failed: ' + error.message);
         }
       }
     } else {
@@ -167,15 +147,9 @@ function App() {
     }
   };
 
-
   useEffect(() => {
     fetchFileList();
   }, [selectedFile]);
-  
-  // useEffect(() => {
-  //   fetchRandomImage(); 
-  // }, []); 
-  
 
   const fetchFileList = async () => {
     try {
@@ -188,7 +162,6 @@ function App() {
       const filteredFiles = files
         .filter(file => file !== 'upload/')
         .map(file => file.replace('upload/', ''));
-
 
       setFileList(filteredFiles);
       setError(null);
@@ -219,11 +192,11 @@ function App() {
         const fileName = selectedFile.replace('upload/', '');
         const downloadUrl = `${apiURL}/download/${fileName}`;
         var a = document.createElement("a");
-      a.href = downloadUrl;
-      a.download = fileName.split('/').pop(); // Set the file name for download
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+        a.href = downloadUrl;
+        a.download = fileName.split('/').pop();
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
       }
     } else {
       alert('Password required for downloading files.');
@@ -261,56 +234,60 @@ function App() {
     } else {
       alert('Password required for uploading files.');
     }
-  }
+  };
 
-  
   const CodeFormatter = () => {
-    
     const [code, setCode] = useState("");
-  
+    const [formattedCode, setFormattedCode] = useState("");
+
     const handleFormatClick = async () => {
-      if (formatType === 'mssql') {
-      try {
-        const response = await fetch('https://api.tajimahalsitdu.it/format-sql', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ sql: code }),
-        });
-        const data = await response.json();
-        if (response.ok) {
-          setCode(data.formattedSQL);
-        } else {
-          throw new Error(data.error);
-        }
-      } catch (error) {
-        console.error('Formatting failed:', error);
-      }
-    }
-    else if (formatType === 'insert') {
+      const transformInsertData = (code) => {
+        return code.split('\n').map(line => {
+          const rawElements = line.split(/   +/);
+          const transformed = rawElements.map(el => {
+            return el === 'NULL' ? el : `'${el}'`;
+          });
+      
+          return `(${transformed.join(', ')})`;
+        }).join('\n');
+      };
+      
+      // Insert 포맷팅 로직
       const transformedCode = transformInsertData(code);
-      setCode(transformedCode);
-    }
+      setFormattedCode(transformedCode);
     };
-  
+
     return (
       <div id="code-formatter">
-        <textarea value={code} onChange={(e) => setCode(e.target.value)} />
+        <div className="split-container">
+          <textarea
+            className="textarea-left"
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+          />
+          <div className="result-container">
+            {formattedCode === 'Formatting failed' ? (
+              <div className="error">Formatting failed</div>
+            ) : (
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: formattedCode.replace(/\n/g, '<br>')
+                }}
+              />
+            )}
+          </div>
+        </div>
         <button onClick={handleFormatClick}>Format Code</button>
       </div>
     );
   };
 
-
   return (
     <div className="App">
-       <NavBar /> {
-        
-       }
-    <div id="home"></div>
+      <NavBar />
+      <div id="home"></div>
       <header className="App-header">
-      <img src="/33.png" className="image-size" />
+        <img src="/33.png" className="image-size" />
       </header>
       <main className="App-main">
         <div className="File-operations">
@@ -326,36 +303,31 @@ function App() {
             ))}
           </div>
           <label htmlFor="file-upload" className="button-style">
-      {uploadedFileName || "Upload"}
-    </label>
-    <div className="button-container">
-    <input 
-      id="file-upload" 
-      type="file" 
-      onChange={handleFileUpload} 
-      style={{ display: 'none' }} // 실제 input은 숨김 처리
-    />
-    <select value={formatType} onChange={e => setFormatType(e.target.value)}>
-        <option value="mssql">MSSQL</option>
-        <option value="insert">Insert</option>
-      </select>
-          <Button className="button-style" onClick={handleDownload}>
-            Download Selected File
-          </Button>
-          <Button className="button-style" onClick={handleDelete}>
-            Delete Selected File
-          </Button>
-          {error && <div className="error">{error}</div>}
-        </div>
+            {uploadedFileName || "Upload"}
+          </label>
+          <div className="button-container">
+            <input
+              id="file-upload"
+              type="file"
+              onChange={handleFileUpload}
+              style={{ display: 'none' }}
+            />
+            <Button className="button-style" onClick={handleDownload}>
+              Download Selected File
+            </Button>
+            <Button className="button-style" onClick={handleDelete}>
+              Delete Selected File
+            </Button>
+            {error && <div className="error">{error}</div>}
+          </div>
         </div>
         <CodeFormatter />
         <div className="log-data">
-        <div>
-          <h2>Today's Logs</h2>
-          <div dangerouslySetInnerHTML={{ __html: todayLogs }} /> 
-          {/* HTML로 변환된 로그 데이터를 표시 */}
+          <div>
+            <h2>Today's Logs</h2>
+            <div dangerouslySetInnerHTML={{ __html: todayLogs }} />
+          </div>
         </div>
-      </div>
       </main>
       <footer className="App-footer">
         <p></p>
