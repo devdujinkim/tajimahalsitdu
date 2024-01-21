@@ -277,7 +277,7 @@ function App() {
             )}
           </div>
         </div>
-        <button onClick={handleFormatClick}>Format Code</button>
+        <button onClick={handleFormatClick} className="button-style">Format Code</button>
       </div>
     );
   };
@@ -331,7 +331,7 @@ function App() {
       </main>
       <footer className="App-footer">
         <p></p>
-        <Button onClick={handleClearLogs}>Clear</Button>
+        <Button onClick={handleClearLogs} className="button-style">Clear</Button>
       </footer>
     </div>
   );

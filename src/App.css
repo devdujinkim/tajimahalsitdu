@@ -105,13 +105,14 @@ body {
 }
 /* 공통 버튼 스타일 */
 .button-style {
-  background-color: transparent; /* 녹색 배경 */
+  /*background-color: transparent;  */
   color: white;
   padding: 15px 20px;
   margin: 10px 0;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  background-color: #393a46;/* 버튼 배경 색상 */
 }
 .log-data,
 .log-log-list{
@@ -259,6 +260,5 @@ body, input, button {
   border: 1px solid #ccc; /* 결과값 영역에 테두리 추가 (선택 사항) */
   padding: 10px; /* 결과값 영역 내부 여백 추가 (선택 사항) */
   background-color: white;
-  text-align: left; /* 텍스트를 왼쪽 정렬로 변경 */
+  text-align: left; /* 텍스트를 왼쪽 정렬로 변경 */ 
 }
-
