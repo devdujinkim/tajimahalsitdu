@@ -13,7 +13,6 @@ body {
   width: 400px; /* 원하는 너비로 설정 */
 }
 
-
 .App-header,
 .File-list div {
   color: white;
@@ -29,13 +28,13 @@ body {
   padding: 20px;
   text-align: center;
 }
-  
+
 .App-main {
   padding: 20px;
 }
 
 .Login {
-  background-color:rgba(161, 147, 147, 0.622);
+  background-color: rgba(161, 147, 147, 0.622);
   padding: 20px;
   border-radius: 10px;
   display: flex;
@@ -51,8 +50,6 @@ body {
   border: none;
   border-radius: 5px;
   width: 200px;
-}
-.Login input, .File-operations input[type="file"] {
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
   transition: box-shadow 0.3s;
 }
@@ -61,12 +58,10 @@ body {
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5); /* 포커스 또는 호버시 그림자 강조 */
 }
 
-
 .File-operations {
   margin: auto;
   padding: 20px;
   max-width: 300px;
-  
 }
 
 .File-operations .buttons {
@@ -84,8 +79,6 @@ body {
   text-decoration: underline;
 }
 
-/* ... 기존 스타일링 */
-
 .File-item {
   cursor: pointer;
   margin-bottom: 10px;
@@ -99,37 +92,33 @@ body {
 .File-item:hover {
   text-decoration: underline;
 }
+
 .button-container {
   display: flex;
   flex-direction: row;
 }
+
 /* 공통 버튼 스타일 */
 .button-style {
-  /*background-color: transparent;  */
   color: white;
   padding: 15px 20px;
   margin: 10px 0;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background-color: #393a46;/* 버튼 배경 색상 */
+  background-color: #393a46; /* 버튼 배경 색상 */
 }
-.log-data,
-.log-log-list{
-  color: white;
-  text-shadow: 2px 2px 4px #000000; /* 검은색 그림자 추가 */
 
-}
 .button-style:hover {
   background-color: transparent;
 }
+
 /* 파일 업로드 라벨 스타일 */
 .File-operations label {
-  /* 라벨에 공통 버튼 스타일 적용 */
   display: inline-block;
   cursor: pointer;
-  /* 추가 스타일링 */
 }
+
 /* 파일 업로드 버튼 스타일 */
 .File-operations input[type="file"] {
   background-color: transparent;
@@ -141,74 +130,60 @@ body {
   cursor: pointer;
 }
 
-/* 파일 업로드 라벨 스타일 */
-.File-operations label {
-  /* 라벨에 공통 버튼 스타일 적용 */
-  display: inline-block;
-  cursor: pointer;
-  /* 추가 스타일링 */
-}
 .nav-links {
-  position: absolute; /* 고정 위치를 absolute로 변경 */
-  top: 50%; /* 중앙 정렬을 위해 변경 */
-  right: 10px; /* 오른쪽에서부터의 거리 */
-  transform: translateY(-50%); /* 세로 중앙 정렬을 위해 추가 */
-  z-index: 1000; /* 다른 요소 위에 표시되도록 z-index 설정 */
-  color: white; /* 글씨 색상 하얀색으로 변경 */
+  position: fixed;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  z-index: 1000;
+  color: white;
   border-radius: 5px;
   padding: 10px;
 }
 
 .textarea-code {
-  width: 100%; /* 혹은 특정 픽셀 값 */
-  height: 200px; /* 원하는 높이로 설정 */
+  width: 100%;
+  height: 200px;
 }
-
 
 #code-formatter textarea {
-  width: 100%; /* 전체 너비를 차지하도록 설정 */
-  height: 400px; /* 높이를 300픽셀로 설정 */
+  width: 100%;
+  height: 400px;
 }
 
-/* ... 기존 스타일 */
-
+/* 모바일 화면에서의 스타일 조정 */
 @media (max-width: 768px) {
   .nav-links {
-    position: fixed; /* 모바일 화면에서도 네비게이션을 고정 */
-    top: 50%; /* 상단으로부터 50% */
-    right: 0; /* 오른쪽 정렬 */
-    transform: translateY(-50%); /* 세로 중앙 정렬 */
-    z-index: 1000; /* 다른 요소 위에 표시 */
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    z-index: 1000;
   }
-  
+
   .button-style, .nav-links a {
-    /* 모바일 화면에서 버튼 및 네비게이션 링크 스타일 */
-    font-size: 14px; /* 글씨 크기 조정 */
+    font-size: 14px;
   }
 
   .input-field, .button, .File-operations input[type="file"] {
-    /* 모바일 화면에서 입력 필드 및 버튼 스타일 */
-    padding: 8px 10px; /* 내부 여백 조정 */
+    padding: 8px 10px;
   }
-
 }
 
-/* 모바일 화면에서 전체적인 레이아웃 조정 */
+/* 모바일 화면에서의 레이아웃 조정 */
 body, .App-header, .App-main, .Login, .File-operations, #code-formatter textarea {
-  /* 화면 너비에 맞추어 요소들이 스택되도록 변경 */
   flex-direction: column;
   align-items: stretch;
-  padding: 10px; /* 여백 조정 */
-  box-sizing: border-box; /* 너비 계산 방식 변경 */
+  padding: 10px;
+  box-sizing: border-box;
 }
-
 
 .button-style, .nav-links a {
   transition: background-color 0.3s, color 0.3s;
 }
 
 .button-style:hover, .nav-links a:hover {
-  background-color: #4a5568; /* 새로운 호버 색상 */
+  background-color: #4a5568;
   color: #ffffff;
 }
 
@@ -217,48 +192,49 @@ body, .App-header, .App-main, .Login, .File-operations, #code-formatter textarea
 body, input, button {
   font-family: 'Roboto', sans-serif;
 }
+
 .input-field {
-  border: 1px solid #ddd; /* 경계선을 미묘하게 */
-  border-radius: 4px; /* 약간 둥근 모서리 */
-  padding: 12px 15px; /* 내부 여백 */
-  margin: 10px 0; /* 요소 간 간격 */
-  width: 100%; /* 전체 너비 */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 상자 그림자 */
-  transition: all 0.3s; /* 부드러운 전환 효과 */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 12px 15px;
+  margin: 10px 0;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
 }
 
 .input-field:focus {
-  border-color: #a2a2a2; /* 포커스 될 때 변경될 경계선 색상 */
-  box-shadow: 0 0 8px rgba(0,0,0,0.2); /* 포커스 될 때 변경될 상자 그림자 */
+  border-color: #a2a2a2;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
 }
 
 .button {
-  background-color: #5C6BC0; /* 버튼 배경 색상 */
-  color: white; /* 버튼 내부 텍스트 색상 */
-  padding: 10px 20px; /* 버튼 내부 여백 */
-  border: none; /* 경계선 없음 */
-  border-radius: 4px; /* 약간 둥근 모서리 */
-  cursor: pointer; /* 클릭 가능한 요소임을 나타내는 커서 */
-  transition: background-color 0.3s; /* 색상 변화에 대한 부드러운 전환 효과 */
+  background-color: #5C6BC0;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .button:hover {
-  background-color: #3949AB; /* 호버 시 버튼 배경 색상 변경 */
+  background-color: #3949AB;
 }
 
 .split-container {
-  display: flex; /* 왼쪽과 오른쪽 영역을 가로로 나눔 */
+  display: flex;
 }
 
 .textarea-left {
-  flex: 1; /* 왼쪽 영역이 오른쪽 영역에 비해 확장됨 */
-  margin-right: 10px; /* 왼쪽과 오른쪽 영역 사이의 간격 설정 */
+  flex: 1;
+  margin-right: 10px;
 }
 
 .result-container {
-  flex: 1; /* 오른쪽 영역이 왼쪽 영역에 비해 확장됨 */
-  border: 1px solid #ccc; /* 결과값 영역에 테두리 추가 (선택 사항) */
-  padding: 10px; /* 결과값 영역 내부 여백 추가 (선택 사항) */
+  flex: 1;
+  border: 1px solid #ccc;
+  padding: 10px;
   background-color: white;
-  text-align: left; /* 텍스트를 왼쪽 정렬로 변경 */ 
+  text-align: left;
 }
