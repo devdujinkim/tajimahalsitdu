@@ -168,6 +168,15 @@ body {
   .input-field, .button, .File-operations input[type="file"] {
     padding: 8px 10px;
   }
+  .split-container {
+    flex-direction: column; /* 모바일 화면에서는 컨테이너를 세로로 쌓습니다 */
+  }
+
+  .textarea-left, .result-container {
+    /* 모바일 화면에서는 각각의 width를 100%로 설정하여 화면 전체를 차지하도록 합니다 */
+    width: 100%;
+    margin-right: 0; /* 모바일 화면에서는 margin-right를 제거합니다 */
+  }
 }
 
 /* 모바일 화면에서의 레이아웃 조정 */
@@ -224,11 +233,10 @@ body, input, button {
 
 .split-container {
   display: flex;
+  justify-content: space-between;
 }
-
-.textarea-left {
+.textarea-left, .result-container {
   flex: 1;
-  margin-right: 10px;
 }
 
 .result-container {
