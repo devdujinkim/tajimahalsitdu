@@ -213,19 +213,20 @@ function App() {
     const handleFormatClick = () => {
       const transformInsertData = (code) => {
         return code.split('\n').map(line => {
-          // 탭 문자와 여러 공백을 처리할 수 있는 정규 표현식으로 변경합니다.
-          const rawElements = line.split(/\s+/);
+          // 두 개 이상의 공백 또는 탭으로 분리합니다.
+          const rawElements = line.split(/ {2,}|\t+/);
           const transformed = rawElements.map(el => {
-            return el === 'NULL' ? el : `'${el}'`;
+            // 'NULL'이 아닌 모든 값을 따옴표로 묶음
+            return el === 'NULL' ? el : `'${el.trim()}'`;
           });
-  
           return `(${transformed.join(', ')})`;
-        }).join('\n');
+        }).join(',\n');
       };
-  
+    
       const transformedCode = transformInsertData(code);
       setFormattedCode(transformedCode);
     };
+    
 
     return (
       <div id="code-formatter">
