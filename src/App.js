@@ -206,23 +206,23 @@ function App() {
     }
   };
 
-  // 코드 포맷터 컴포넌트
   const CodeFormatter = () => {
     const [code, setCode] = useState("");
     const [formattedCode, setFormattedCode] = useState("");
-
+  
     const handleFormatClick = () => {
       const transformInsertData = (code) => {
         return code.split('\n').map(line => {
-          const rawElements = line.split(/   +/);
+          // 탭 문자와 여러 공백을 처리할 수 있는 정규 표현식으로 변경합니다.
+          const rawElements = line.split(/\s+/);
           const transformed = rawElements.map(el => {
             return el === 'NULL' ? el : `'${el}'`;
           });
-
+  
           return `(${transformed.join(', ')})`;
         }).join('\n');
       };
-
+  
       const transformedCode = transformInsertData(code);
       setFormattedCode(transformedCode);
     };
