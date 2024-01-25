@@ -211,32 +211,26 @@ function App() {
     const [formattedCode, setFormattedCode] = useState("");
   
     const transformInsertData = (code) => {
-      // 줄바꿈으로 각 라인을 분리합니다.
       return code.split('\n').map(line => {
-        // 공백을 정확히 감지하기 위해 문자열 앞뒤의 공백을 제거하고, 연속된 공백을 하나의 공백으로 변환합니다.
-        const trimmedLine = line.trim().replace(/\s+/g, ' ');
-        // 공백으로 값을 분리합니다.
-        const rawElements = trimmedLine.split(' ');
-        // 분리된 값들을 확인하고 적절히 변환합니다.
+        // 먼저 모든 탭을 단일 공백으로 변환합니다.
+        const normalizedLine = line.replace(/\t+/g, ' ');
+        // 그런 다음 단일 공백을 기준으로 값을 분리합니다.
+        const rawElements = normalizedLine.split(' ');
         const transformed = rawElements.map(el => {
-          if (el === 'NULL') {
-            return 'NULL';
-          } else {
-            // 공백을 빈 문자열로 처리합니다.
-            return el === '-' ? "'-'" : `'${el}'`;
-          }
+          // 'NULL'이 아닌 모든 값을 따옴표로 묶음
+          return el === 'NULL' || el === '' ? el : `'${el.trim()}'`;
         });
-        // 변환된 값들을 쉼표로 구분하여 괄호 안에 넣습니다.
-        return `(${transformed.join(', ')})`;
+        // 연속된 탭(빈 문자열)은 ''로 변환
+        const finalTransformed = transformed.map(el => (el === '' ? "''" : el));
+        return `(${finalTransformed.join(', ')})`;
       }).join(',\n');
     };
-    
-    
     
     const handleFormatClick = () => {
       const transformedCode = transformInsertData(code);
       setFormattedCode(transformedCode);
     };
+    
     
     
     
