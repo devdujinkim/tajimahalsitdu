@@ -1,5 +1,5 @@
 body {
-  background-color: black;
+  background-color: #000E09;
   margin: 0;
   padding: 0;
   display: flex;
@@ -131,15 +131,30 @@ body {
 }
 
 .nav-links {
-  position: fixed;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  z-index: 1000;
-  color: white;
-  border-radius: 5px;
-  padding: 10px;
+  position: fixed; /* 네비게이션 바를 고정 위치로 설정 */
+  top: 0; /* 화면의 맨 위에 위치하도록 설정 */
+  left: 0; /* 화면의 왼쪽 끝에서 시작하도록 설정 */
+  width: 100%; /* 너비를 화면 전체로 설정 */
+  background: rgba(0, 0, 0, 0.5); /* 반투명 검정색 배경 */
+  z-index: 1000; /* 다른 요소들 위에 나타나도록 z-index 값을 크게 설정 */
+  padding: 10px 0; /* 상단과 하단에 패딩을 추가 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 네비게이션 바 아래에 그림자 효과를 추가 */
+  display: flex; /* 링크들을 가로로 나란히 정렬 */
+  justify-content: center; /* 링크들을 가운데 정렬 */
 }
+
+.nav-links a {
+  color: white; /* 링크의 텍스트 색상을 흰색으로 설정 */
+  padding: 0 10px; /* 좌우 패딩을 추가하여 링크 사이에 공간을 만듬 */
+  text-decoration: none; /* 밑줄 제거 */
+  font-size: 16px; /* 텍스트 크기 설정 */
+  line-height: 1.5; /* 줄 간격 설정 */
+}
+
+.nav-links a:hover {
+  color: #ccc; /* 마우스 호버 시 텍스트 색상 변경 */
+}
+
 
 .textarea-code {
   width: 100%;
@@ -154,12 +169,30 @@ body {
 /* 모바일 화면에서의 스타일 조정 */
 @media (max-width: 768px) {
   .nav-links {
-    position: fixed;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    z-index: 1000;
+    position: fixed; /* 네비게이션 바를 고정 위치로 설정 */
+    top: 0; /* 화면의 맨 위에 위치하도록 설정 */
+    left: 0; /* 화면의 왼쪽 끝에서 시작하도록 설정 */
+    width: 100%; /* 너비를 화면 전체로 설정 */
+    background: rgba(0, 0, 0, 0.5); /* 반투명 검정색 배경 */
+    z-index: 1000; /* 다른 요소들 위에 나타나도록 z-index 값을 크게 설정 */
+    padding: 10px 0; /* 상단과 하단에 패딩을 추가 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 네비게이션 바 아래에 그림자 효과를 추가 */
+    display: flex; /* 링크들을 가로로 나란히 정렬 */
+    justify-content: center; /* 링크들을 가운데 정렬 */
   }
+  
+  .nav-links a {
+    color: white; /* 링크의 텍스트 색상을 흰색으로 설정 */
+    padding: 0 10px; /* 좌우 패딩을 추가하여 링크 사이에 공간을 만듬 */
+    text-decoration: none; /* 밑줄 제거 */
+    font-size: 16px; /* 텍스트 크기 설정 */
+    line-height: 1.5; /* 줄 간격 설정 */
+  }
+  
+  .nav-links a:hover {
+    color: #ccc; /* 마우스 호버 시 텍스트 색상 변경 */
+  }
+  
 
   .button-style, .nav-links a {
     font-size: 14px;
@@ -250,4 +283,3 @@ body, input, button {
 .log-data {
   color: white; /* 텍스트 색상을 흰색으로 변경 */
 }
-
