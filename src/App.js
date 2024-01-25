@@ -212,19 +212,19 @@ function App() {
   
     const transformInsertData = (code) => {
       return code.split('\n').map(line => {
-        // 먼저 모든 탭을 단일 공백으로 변환합니다.
-        const normalizedLine = line.replace(/\t+/g, ' ');
-        // 그런 다음 단일 공백을 기준으로 값을 분리합니다.
-        const rawElements = normalizedLine.split(' ');
+        // 하나 이상의 탭, 또는 두 개 이상의 공백으로 분리합니다.
+        // 연속된 공백을 잡기 위해 공백 정규식을 수정합니다.
+        const rawElements = line.split(/\t+| {2,}/);
         const transformed = rawElements.map(el => {
           // 'NULL'이 아닌 모든 값을 따옴표로 묶음
-          return el === 'NULL' || el === '' ? el : `'${el.trim()}'`;
+          // 빈 문자열을 처리합니다.
+          return el === 'NULL' ? el : el === '' ? "''" : `'${el.trim()}'`;
         });
-        // 연속된 탭(빈 문자열)은 ''로 변환
-        const finalTransformed = transformed.map(el => (el === '' ? "''" : el));
-        return `(${finalTransformed.join(', ')})`;
+        // 변환된 값들을 쉼표로 구분하여 괄호 안에 넣음
+        return `(${transformed.join(', ')})`;
       }).join(',\n');
     };
+    
     
     const handleFormatClick = () => {
       const transformedCode = transformInsertData(code);
