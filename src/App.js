@@ -212,24 +212,25 @@ function App() {
 
     const transformInsertData = (code) => {
       return code.split('\n').map(line => {
-        // 각 탭(\t)을 개별적으로 처리하고, 두 개 이상의 공백을 하나의 공백으로 취급합니다.
-        // 연속된 탭과 공백을 개별 요소로 분리합니다.
-        const rawElements = line.split(/( {2,}|\t)/);
+        // 모든 탭(\t)을 개별적으로 처리합니다.
+        // split(/(\t)/)는 각 탭을 개별적으로 구분합니다.
+        const rawElements = line.split(/(\t)/);
         const transformed = rawElements.map(el => {
           if (el === '\t') {
             // 각 탭은 빈 문자열로 변환
             return "''";
-          } else if (el.trim() === '' || el === 'NULL') {
-            // 'NULL'과 빈 문자열은 그대로 유지
-            return el.trim();
+          } else if (el === 'NULL') {
+            // 'NULL'은 그대로 유지
+            return 'NULL';
           } else {
             // 다른 모든 값은 따옴표로 묶음
             return `'${el.trim()}'`;
           }
         });
-        // 변환된 값을 쉼표로 구분하여 괄호 안에 넣습니다.
+        // 변환된 값들을 쉼표로 구분하여 괄호 안에 넣습니다.
+        // 줄의 끝에 쉼표 대신 닫는 괄호를 사용합니다.
         return `(${transformed.join(', ')})`;
-      }).join(',\n');
+      }).join('\n');
     };
     
     const handleFormatClick = () => {
