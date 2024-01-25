@@ -213,22 +213,24 @@ function App() {
     const transformInsertData = (code) => {
       // 줄바꿈으로 각 라인을 분리합니다.
       return code.split('\n').map(line => {
-        // 연속된 공백을 구분자로 사용하여 값을 분리합니다.
-        const rawElements = line.split(/\s+/);
-        // 빈 문자열을 처리하기 위해 공백이 있었던 자리에 ''를 삽입합니다.
+        // 공백을 정확히 감지하기 위해 문자열 앞뒤의 공백을 제거하고, 연속된 공백을 하나의 공백으로 변환합니다.
+        const trimmedLine = line.trim().replace(/\s+/g, ' ');
+        // 공백으로 값을 분리합니다.
+        const rawElements = trimmedLine.split(' ');
+        // 분리된 값들을 확인하고 적절히 변환합니다.
         const transformed = rawElements.map(el => {
-          if (el === '') {
-            return "''"; // 연속된 공백을 ''로 변환
-          } else if (el === 'NULL') {
+          if (el === 'NULL') {
             return 'NULL';
           } else {
-            return `'${el}'`; // 나머지 문자열을 ''로 감쌉니다.
+            // 공백을 빈 문자열로 처리합니다.
+            return el === '-' ? "'-'" : `'${el}'`;
           }
         });
         // 변환된 값들을 쉼표로 구분하여 괄호 안에 넣습니다.
         return `(${transformed.join(', ')})`;
       }).join(',\n');
     };
+    
     
     
     const handleFormatClick = () => {
