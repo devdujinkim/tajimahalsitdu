@@ -212,16 +212,18 @@ function App() {
   
     const transformInsertData = (code) => {
       return code.split('\n').map(line => {
-        // 하나 이상의 탭, 또는 두 개 이상의 공백으로 분리합니다.
-        // 연속된 공백을 잡기 위해 공백 정규식을 수정합니다.
-        const rawElements = line.split(/\t+| {2,}/);
+        // 모든 연속된 탭을 하나의 탭으로 변환합니다.
+        const standardizedLine = line.replace(/\t+/g, '\t');
+        // 변환된 단일 탭을 기준으로 문자열을 분리합니다.
+        const rawElements = standardizedLine.split('\t');
         const transformed = rawElements.map(el => {
           // 'NULL'이 아닌 모든 값을 따옴표로 묶음
-          // 빈 문자열을 처리합니다.
-          return el === 'NULL' ? el : el === '' ? "''" : `'${el.trim()}'`;
+          return el === 'NULL' ? 'NULL' : `'${el.trim()}'`;
         });
+        // 분리된 문자열에서 빈 문자열을 처리합니다.
+        const finalTransformed = transformed.map(el => el.trim() === '' ? "''" : el);
         // 변환된 값들을 쉼표로 구분하여 괄호 안에 넣음
-        return `(${transformed.join(', ')})`;
+        return `(${finalTransformed.join(', ')})`;
       }).join(',\n');
     };
     
