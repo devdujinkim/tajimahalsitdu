@@ -210,22 +210,25 @@ function App() {
     const [code, setCode] = useState("");
     const [formattedCode, setFormattedCode] = useState("");
   
-    const handleFormatClick = () => {
-      const transformInsertData = (code) => {
-        return code.split('\n').map(line => {
-          // 두 개 이상의 공백 또는 탭으로 분리합니다.
-          const rawElements = line.split(/ {2,}|\t+/);
-          const transformed = rawElements.map(el => {
-            // 'NULL'이 아닌 모든 값을 따옴표로 묶음
-            return el === 'NULL' ? el : `'${el.trim()}'`;
-          });
-          return `(${transformed.join(', ')})`;
-        }).join(',\n');
-      };
-    
-      const transformedCode = transformInsertData(code);
-      setFormattedCode(transformedCode);
+    const transformInsertData = (code) => {
+      const lines = code.trim().split('\n'); // 앞뒤 공백을 제거하고 줄바꿈으로 분리
+      const transformedLines = lines.map(line => {
+        const rawElements = line.trim().split(/\s+/); // 공백으로 구분
+        const transformed = rawElements.map(el => el === 'NULL' ? el : `'${el.trim()}'`);
+        return `(${transformed.join(', ')})`;
+      });
+      
+      // 마지막 쉼표를 제거하지 않고, 각 변환된 라인을 쉼표와 개행문자로 연결
+      return transformedLines.join(',\n');
     };
+    
+    const handleFormatClick = () => {
+      const transformedCode = transformInsertData(code);
+      // 마지막 쉼표를 제거하는 로직 추가
+      const finalTransformedCode = transformedCode.endsWith(',') ? transformedCode.slice(0, -1) : transformedCode;
+      setFormattedCode(finalTransformedCode);
+    };
+    
     
 
     return (
