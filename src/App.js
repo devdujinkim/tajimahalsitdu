@@ -209,20 +209,21 @@ function App() {
   const CodeFormatter = () => {
     const [code, setCode] = useState("");
     const [formattedCode, setFormattedCode] = useState("");
-  
+
     const transformInsertData = (code) => {
       return code.split('\n').map(line => {
-        // 모든 공백을 하나의 탭으로 간주하고 분리합니다.
-        const rawElements = line.split(/\t/);
+        // 각 탭(\t)을 개별적으로 처리하고, 두 개 이상의 공백을 하나의 공백으로 취급합니다.
+        // 연속된 탭과 공백을 개별 요소로 분리합니다.
+        const rawElements = line.split(/( {2,}|\t)/);
         const transformed = rawElements.map(el => {
-          if (el === 'NULL') {
-            // 'NULL' 문자열은 NULL로 변환합니다.
-            return 'NULL';
-          } else if (el.trim() === '') {
-            // 빈 문자열은 빈 따옴표로 변환합니다.
+          if (el === '\t') {
+            // 각 탭은 빈 문자열로 변환
             return "''";
+          } else if (el.trim() === '' || el === 'NULL') {
+            // 'NULL'과 빈 문자열은 그대로 유지
+            return el.trim();
           } else {
-            // 그 외의 값은 따옴표로 묶습니다.
+            // 다른 모든 값은 따옴표로 묶음
             return `'${el.trim()}'`;
           }
         });
@@ -231,16 +232,15 @@ function App() {
       }).join(',\n');
     };
     
-    
-    
     const handleFormatClick = () => {
       const transformedCode = transformInsertData(code);
       setFormattedCode(transformedCode);
     };
     
-    
-    
-    
+
+
+
+
 
     return (
       <div id="code-formatter">
@@ -315,6 +315,6 @@ function App() {
       </main>
     </div>
   );
-            }
-          
+}
+
 export default App;
