@@ -211,23 +211,31 @@ function App() {
     const [formattedCode, setFormattedCode] = useState("");
   
     const transformInsertData = (code) => {
-      const lines = code.trim().split('\n'); // 앞뒤 공백을 제거하고 줄바꿈으로 분리
-      const transformedLines = lines.map(line => {
-        const rawElements = line.trim().split(/\s+/); // 공백으로 구분
-        const transformed = rawElements.map(el => el === 'NULL' ? el : `'${el.trim()}'`);
+      return code.split('\n').map(line => {
+        // 연속된 공백을 하나의 공백으로 치환합니다.
+        const standardizedLine = line.replace(/\s+/g, ' ');
+        // 공백으로 구분된 각 값을 배열로 변환합니다.
+        const rawElements = standardizedLine.split(' ');
+        const transformed = rawElements.map(el => {
+          if (el === 'NULL') {
+            return 'NULL';
+          } else if (el === '-') {
+            return "'-'";
+          } else if (el === '') { // 빈 문자열 처리
+            return "''";
+          } else {
+            return `'${el.trim()}'`;
+          }
+        });
         return `(${transformed.join(', ')})`;
-      });
-      
-      // 마지막 쉼표를 제거하지 않고, 각 변환된 라인을 쉼표와 개행문자로 연결
-      return transformedLines.join(',\n');
+      }).join(',\n');
     };
     
     const handleFormatClick = () => {
       const transformedCode = transformInsertData(code);
-      // 마지막 쉼표를 제거하는 로직 추가
-      const finalTransformedCode = transformedCode.endsWith(',') ? transformedCode.slice(0, -1) : transformedCode;
-      setFormattedCode(finalTransformedCode);
+      setFormattedCode(transformedCode);
     };
+    
     
     
 
