@@ -212,15 +212,12 @@ function App() {
 
     const transformInsertData = (code) => {
       return code.split('\n').map(line => {
-        // 모든 탭(\t)을 개별적으로 처리합니다.
-        // split(/(\t)/)는 각 탭을 개별적으로 구분합니다.
-        const rawElements = line.split(/(\t)/);
-        const transformed = rawElements.map(el => {
-          if (el === '\t') {
-            // 각 탭은 빈 문자열로 변환
-            return "''";
-          } else if (el === 'NULL') {
-            // 'NULL'은 그대로 유지
+        // 탭(\t)으로 분할합니다.
+        const elements = line.split('\t');
+        // 빈 문자열이 아닌 요소만 처리합니다.
+        const transformed = elements.filter(el => el !== '').map(el => {
+          // 'NULL'은 그대로 유지
+          if (el === 'NULL') {
             return 'NULL';
           } else {
             // 다른 모든 값은 따옴표로 묶음
@@ -228,10 +225,10 @@ function App() {
           }
         });
         // 변환된 값들을 쉼표로 구분하여 괄호 안에 넣습니다.
-        // 줄의 끝에 쉼표 대신 닫는 괄호를 사용합니다.
         return `(${transformed.join(', ')})`;
       }).join('\n');
     };
+    
     
     const handleFormatClick = () => {
       const transformedCode = transformInsertData(code);
