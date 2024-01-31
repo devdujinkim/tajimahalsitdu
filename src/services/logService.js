@@ -11,17 +11,19 @@ export const fetchTodayLogs = async () => {
 };
 
 // 로그 데이터 클리어하기
+// logService.js
 export const clearLogs = async (password) => {
-  const response = await fetch(`${apiURL}/clear-logs`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ password }),
-  });
-
-  if (!response.ok) {
-    throw new Error('Failed to clear logs');
-  }
-  return response.ok;
-};
+    const response = await fetch(`${apiURL}/clear-logs`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ PASSWORD: password }), // 수정된 부분
+    });
+  
+    if (!response.ok) {
+      throw new Error('Failed to clear logs');
+    }
+    return response.ok;
+  };
+  
