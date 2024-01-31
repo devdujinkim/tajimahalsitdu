@@ -95,7 +95,8 @@ body {
 
 .button-container {
   display: flex;
-  flex-direction: row;
+  justify-content: center; /* 버튼들을 가운데 정렬 */
+  gap: 10px; /* 버튼 사이의 간격을 10px로 설정 */
 }
 
 /* 공통 버튼 스타일 */
@@ -282,4 +283,12 @@ body, input, button {
 
 .log-data {
   color: white; /* 텍스트 색상을 흰색으로 변경 */
+}
+
+/* styles.css 파일 내에 추가 */
+
+.flag-icon {
+  vertical-align: middle;
+  height: 20px;
+  transform: translateY(-2px);
 }
