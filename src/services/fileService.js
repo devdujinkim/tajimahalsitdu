@@ -17,9 +17,8 @@ export const fetchFileList = async () => {
   
   
 
-// 파일 업로드
-// services/fileService.js
 
+// 파일 업로드
 export const uploadFile = async (file) => {
     try {
       const formData = new FormData();
@@ -27,7 +26,7 @@ export const uploadFile = async (file) => {
   
       const response = await fetch(`${apiURL}/upload`, {
         method: 'POST',
-        body: formData,
+        body: formData, // headers에 Content-Type을 설정하지 않음
       });
   
       if (!response.ok) {
@@ -40,6 +39,7 @@ export const uploadFile = async (file) => {
       throw error;
     }
   };
+  
   
   
   

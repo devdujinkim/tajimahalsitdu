@@ -3,22 +3,33 @@ import Button from 'react-bootstrap/Button';
 import { uploadFile, downloadFile, deleteFile, verifyPassword } from '../services/fileService';
 
 const FileOperations = ({ selectedFile, onFileListUpdate }) => {
-  const [password, setPassword] = useState("");
-
-  // 파일 업로드 처리 함수
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
-      const formData = new FormData();
-      formData.append('file', file);
-      try {
-        await uploadFile(formData); // 업로드 시 비밀번호 필요 없음
-        onFileListUpdate();
-      } catch (error) {
-        alert(error.message);
+      const passwordInput = prompt("Please enter the password for upload:"); // Request password input
+      if (passwordInput) {
+        try {
+          const isPasswordValid = await verifyPassword(passwordInput, 'upload'); // Verify the password for upload
+          if (isPasswordValid) {
+            const formData = new FormData();
+            formData.append('file', file);
+            try {
+              await uploadFile(formData); // Proceed with the file upload
+              onFileListUpdate();
+              alert('File uploaded successfully');
+            } catch (error) {
+              alert(error.message);
+            }
+          } else {
+            alert('Invalid password');
+          }
+        } catch (error) {
+          console.error('Error verifying password:', error);
+        }
       }
     }
   };
+  
 
   // 파일 다운로드 처리 함수
   const handleDownload = async () => {
