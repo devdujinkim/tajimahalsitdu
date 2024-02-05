@@ -39,8 +39,7 @@ const FileOperations = ({ selectedFile, onFileListUpdate }) => {
     }
   };
 
-// 클라이언트 측에서 비밀번호를 POST 요청 본문(body)으로 전송
-const handleDownload = async () => {
+  const handleDownload = async () => {
     if (!selectedFile) {
       alert('Please select a file to download.');
       return;
@@ -48,28 +47,15 @@ const handleDownload = async () => {
     
     const passwordInput = prompt("Please enter the password for download:");
     if (passwordInput) {
-      const isPasswordValid = await verifyPassword(passwordInput, 'download');
+      const isPasswordValid = await verifyPassword(passwordInput, 'download'); // 'download' 대신에 passwordInput을 전달
       if (isPasswordValid) {
-        // 서버로 비밀번호를 POST 요청으로 전송
-        const response = await fetch(`${apiURL}/download/${selectedFile}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ password: passwordInput }),
-        });
-  
-        if (response.ok) {
-          // 파일 다운로드 링크를 클릭
-          window.open(await response.text(), '_blank');
-        } else {
-          alert('Failed to download file.');
-        }
+        downloadFile(selectedFile, apiURL, passwordInput); // passwordInput을 downloadFile 함수에 전달
       } else {
         alert('Invalid password');
       }
     }
   };
+  
   
   
 
