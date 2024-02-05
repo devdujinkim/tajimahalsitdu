@@ -249,73 +249,67 @@ body, input, button {
   transform: translateY(-2px);
 }
 
+/* 공통 스타일 유지 */
+
+/* 모바일 화면에서의 레이아웃 조정을 위한 미디어 쿼리 */
 @media (max-width: 768px) {
-  body, .App-header, .App-main, .Login, .File-operations, #code-formatter textarea {
+  body, .App-header, .App-main, .Login, .File-operations, .textarea-code, #code-formatter textarea {
     flex-direction: column;
     align-items: stretch;
     padding: 10px;
     box-sizing: border-box;
   }
-  
-  .image-size {
-    width: 100%; /* 모바일에서는 이미지 너비를 화면에 맞춤 */
-  }
 
-  .File-operations,
-  .Login,
-  .File-list div,
-  .File-item,
-  .button-container,
-  .File-operations input[type="file"],
   .textarea-code,
   #code-formatter textarea {
-    width: 100%; /* 모바일에서는 입력창의 너비를 화면에 맞춤 */
+    height: 200px; /* 모바일 화면에 맞는 textarea 높이 설정 */
+    width: calc(100% - 20px); /* 화면 너비에서 좌우 패딩을 제외한 너비 설정 */
+    margin-bottom: 10px; /* 요소들 사이의 간격 설정 */
   }
 
-  .button-style, .nav-links a {
-    transition: background-color 0.3s, color 0.3s;
+  .input-field,
+  .button,
+  .textarea-code,
+  #code-formatter textarea,
+  .nav-links a,
+  .button-style,
+  .File-operations input[type="file"] {
+    width: 100%; /* 모바일 화면 너비에 맞게 요소의 너비 설정 */
   }
 
-  .button-style:hover, .nav-links a:hover {
-    background-color: #4a5568;
-    color: #ffffff;
+  .split-container {
+    flex-direction: column; /* 컨테이너 내 요소를 세로로 정렬 */
   }
 
-  .
-.nav-links,
-.File-operations .buttons,
-.button-container {
-flex-direction: column;
-}
+  .Login,
+  .File-operations {
+    margin-top: 0; /* 상단 여백 제거 */
+    width: 100%; /* 전체 너비 사용 */
+  }
 
-.nav-links a,
-.button-style,
-.File-operations input[type="file"] {
-width: 90%; /* 버튼과 링크의 너비를 화면에 맞춤 /
-margin-bottom: 10px; / 버튼과 링크 사이의 간격을 추가 */
-}
+  .button-container {
+    flex-direction: column; /* 버튼을 세로로 정렬 */
+  }
 
-.input-field,
-.button {
-width: 90%; /* 입력 필드와 버튼의 너비를 화면에 맞춤 */
-}
+  .button-style,
+  .button-container button,
+  .File-operations input[type="file"] {
+    margin: 10px 0; /* 상하 간격 설정 */
+  }
 
-.split-container {
-flex-direction: column;
-}
+  .nav-links {
+    position: relative; /* 고정 위치 해제 */
+    background: rgba(0, 0, 0, 0.8); /* 배경색 변경 */
+    padding: 10px 0; /* 상하 패딩 설정 */
+  }
 
-.textarea-left, .result-container {
-width: 100%; /* textarea와 결과 컨테이너의 너비를 화면에 맞춤 /
-margin-bottom: 10px; / 컨테이너 사이의 간격을 추가 */
-}
+  .nav-links a {
+    padding: 10px; /* 링크 내부 패딩 설정 */
+  }
 
-.textarea-code,
-#code-formatter textarea {
-height: 200px; /* 모바일 화면에서 textarea의 높이를 조정 */
-}
-
-.Login,
-.File-operations {
-margin-top: 50px; /* 모바일 화면에서 상단 여백을 추가 */
-}
+  .image-size {
+    width: auto; /* 이미지 크기를 자동으로 조정 */
+    max-width: 100%; /* 최대 너비 설정 */
+    height: auto; /* 높이를 자동으로 조정 */
+  }
 }
