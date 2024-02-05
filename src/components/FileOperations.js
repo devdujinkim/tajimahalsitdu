@@ -44,17 +44,18 @@ const FileOperations = ({ selectedFile, onFileListUpdate }) => {
       alert('Please select a file to download.');
       return;
     }
-    
+  
     const passwordInput = prompt("Please enter the password for download:");
     if (passwordInput) {
       const isPasswordValid = await verifyPassword(passwordInput, 'download');
       if (isPasswordValid) {
-        downloadFile(selectedFile, apiURL);
+        downloadFile(selectedFile, apiURL, passwordInput); // 비밀번호를 다운로드 함수에 전달합니다.
       } else {
         alert('Invalid password');
       }
     }
   };
+  
 
   const handleDelete = async () => {
     if (!selectedFile) {
