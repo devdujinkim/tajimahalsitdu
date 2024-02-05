@@ -18,7 +18,7 @@ export const clearLogs = async (password) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ PASSWORD: password }), // 수정된 부분
+      body: JSON.stringify({ password: password }),
     });
   
     if (!response.ok) {

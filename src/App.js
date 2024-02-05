@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import NavBar from './NavBar';
 import FileOperations from './components/FileOperations';
-import FileList from './components/FileList'; // FileList 컴포넌트를 임포트합니다.
+import FileList from './components/FileList';
 import LogData from './components/LogData';
 import CodeFormatter from './components/CodeFormatter';
 import { fetchTodayLogs } from './services/logService';
@@ -29,7 +29,15 @@ function App() {
     });
   }, []);
 
-  // 파일을 선택할 때 호출되는 함수
+  const onFileListUpdate = async () => {
+    try {
+      const files = await fetchFileList();
+      setFileList(files);
+    } catch (error) {
+      console.error('Error updating file list:', error);
+    }
+  };
+
   const handleFileSelect = (file) => {
     setSelectedFile(file);
   };
@@ -41,10 +49,20 @@ function App() {
         <img src="/33.png" className="image-size" alt="Header" />
       </header>
       <main className="App-main">
-        <FileList fileList={fileList} selectedFile={selectedFile} handleFileSelect={handleFileSelect} />
-        <FileOperations selectedFile={selectedFile} />
+        <FileList 
+          fileList={fileList} 
+          selectedFile={selectedFile} 
+          handleFileSelect={handleFileSelect} 
+        />
+        <FileOperations 
+          selectedFile={selectedFile} 
+          onFileListUpdate={onFileListUpdate}  // 여기에 prop으로 함수를 전달합니다.
+        />
         <CodeFormatter />
-        <LogData logs={todayLogs} setLogs={setTodayLogs} />
+        <LogData 
+          logs={todayLogs} 
+          setLogs={setTodayLogs} 
+        />
       </main>
     </div>
   );

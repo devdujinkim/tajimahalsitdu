@@ -5,22 +5,23 @@ import { verifyPassword } from '../services/fileService'; // 필요한 함수를
 import { convertLogsToHTML } from '../utils/helpers';
 
 const LogData = ({ logs, setLogs }) => {
-  const handleClearLogs = async () => {
-    const passwordInput = prompt("Please enter the password to clear logs:");
-    if (passwordInput) {
-      const isPasswordValid = await verifyPassword(passwordInput, 'clearLogs');
-      if (isPasswordValid) {
-        try {
-          await clearLogs();
-          setLogs('');
-        } catch (error) {
-          alert(error.message);
+    const handleClearLogs = async () => {
+        const passwordInput = prompt("Please enter the password to clear logs:");
+        if (passwordInput) {
+          const isPasswordValid = await verifyPassword(passwordInput, 'delete'); // 'clearLogs' 대신 'delete' 사용
+          if (isPasswordValid) {
+            try {
+              await clearLogs(passwordInput); // 비밀번호를 인자로 전달
+              setLogs('');
+            } catch (error) {
+              alert(error.message);
+            }
+          } else {
+            alert('Invalid password');
+          }
         }
-      } else {
-        alert('Invalid password');
-      }
-    }
-  };
+      };
+      
 
   const logsHTML = logs ? convertLogsToHTML(logs) : '';
 

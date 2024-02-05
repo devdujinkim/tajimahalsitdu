@@ -167,51 +167,7 @@ body {
   height: 400px;
 }
 
-/* 모바일 화면에서의 스타일 조정 */
-@media (max-width: 768px) {
-  .nav-links {
-    position: fixed; /* 네비게이션 바를 고정 위치로 설정 */
-    top: 0; /* 화면의 맨 위에 위치하도록 설정 */
-    left: 0; /* 화면의 왼쪽 끝에서 시작하도록 설정 */
-    width: 100%; /* 너비를 화면 전체로 설정 */
-    background: rgba(0, 0, 0, 0.5); /* 반투명 검정색 배경 */
-    z-index: 1000; /* 다른 요소들 위에 나타나도록 z-index 값을 크게 설정 */
-    padding: 10px 0; /* 상단과 하단에 패딩을 추가 */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 네비게이션 바 아래에 그림자 효과를 추가 */
-    display: flex; /* 링크들을 가로로 나란히 정렬 */
-    justify-content: center; /* 링크들을 가운데 정렬 */
-  }
-  
-  .nav-links a {
-    color: white; /* 링크의 텍스트 색상을 흰색으로 설정 */
-    padding: 0 10px; /* 좌우 패딩을 추가하여 링크 사이에 공간을 만듬 */
-    text-decoration: none; /* 밑줄 제거 */
-    font-size: 16px; /* 텍스트 크기 설정 */
-    line-height: 1.5; /* 줄 간격 설정 */
-  }
-  
-  .nav-links a:hover {
-    color: #ccc; /* 마우스 호버 시 텍스트 색상 변경 */
-  }
-  
 
-  .button-style, .nav-links a {
-    font-size: 14px;
-  }
-
-  .input-field, .button, .File-operations input[type="file"] {
-    padding: 8px 10px;
-  }
-  .split-container {
-    flex-direction: column; /* 모바일 화면에서는 컨테이너를 세로로 쌓습니다 */
-  }
-
-  .textarea-left, .result-container {
-    /* 모바일 화면에서는 각각의 width를 100%로 설정하여 화면 전체를 차지하도록 합니다 */
-    width: 100%;
-    margin-right: 0; /* 모바일 화면에서는 margin-right를 제거합니다 */
-  }
-}
 
 /* 모바일 화면에서의 레이아웃 조정 */
 body, .App-header, .App-main, .Login, .File-operations, #code-formatter textarea {
@@ -291,4 +247,75 @@ body, input, button {
   vertical-align: middle;
   height: 20px;
   transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  body, .App-header, .App-main, .Login, .File-operations, #code-formatter textarea {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .image-size {
+    width: 100%; /* 모바일에서는 이미지 너비를 화면에 맞춤 */
+  }
+
+  .File-operations,
+  .Login,
+  .File-list div,
+  .File-item,
+  .button-container,
+  .File-operations input[type="file"],
+  .textarea-code,
+  #code-formatter textarea {
+    width: 100%; /* 모바일에서는 입력창의 너비를 화면에 맞춤 */
+  }
+
+  .button-style, .nav-links a {
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .button-style:hover, .nav-links a:hover {
+    background-color: #4a5568;
+    color: #ffffff;
+  }
+
+  .
+.nav-links,
+.File-operations .buttons,
+.button-container {
+flex-direction: column;
+}
+
+.nav-links a,
+.button-style,
+.File-operations input[type="file"] {
+width: 90%; /* 버튼과 링크의 너비를 화면에 맞춤 /
+margin-bottom: 10px; / 버튼과 링크 사이의 간격을 추가 */
+}
+
+.input-field,
+.button {
+width: 90%; /* 입력 필드와 버튼의 너비를 화면에 맞춤 */
+}
+
+.split-container {
+flex-direction: column;
+}
+
+.textarea-left, .result-container {
+width: 100%; /* textarea와 결과 컨테이너의 너비를 화면에 맞춤 /
+margin-bottom: 10px; / 컨테이너 사이의 간격을 추가 */
+}
+
+.textarea-code,
+#code-formatter textarea {
+height: 200px; /* 모바일 화면에서 textarea의 높이를 조정 */
+}
+
+.Login,
+.File-operations {
+margin-top: 50px; /* 모바일 화면에서 상단 여백을 추가 */
+}
 }
