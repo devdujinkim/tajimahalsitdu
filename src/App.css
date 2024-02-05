@@ -256,7 +256,7 @@ body, input, button {
     padding: 10px;
     box-sizing: border-box;
   }
-
+  
   .image-size {
     width: 100%; /* 모바일에서는 이미지 너비를 화면에 맞춤 */
   }
@@ -281,49 +281,41 @@ body, input, button {
     color: #ffffff;
   }
 
-  .nav-links {
-    position: fixed; /* 네비게이션 바를 화면 상단에 고정 */
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 10;
-  }
+  .
+.nav-links,
+.File-operations .buttons,
+.button-container {
+flex-direction: column;
+}
 
-  .nav-links a,
-  .button-style,
-  .File-operations input[type="file"] {
-    width: 90%; /* 모바일 화면의 너비에 맞추되 좌우 여백을 위해 90% 설정 */
-    margin-bottom: 10px; /* 아래쪽 여백 설정 */
-  }
+.nav-links a,
+.button-style,
+.File-operations input[type="file"] {
+width: 90%; /* 버튼과 링크의 너비를 화면에 맞춤 /
+margin-bottom: 10px; / 버튼과 링크 사이의 간격을 추가 */
+}
 
-  .input-field,
-  .button {
-    width: 90%; /* 모바일 화면의 너비에 맞추되 좌우 여백을 위해 90% 설정 */
-  }
+.input-field,
+.button {
+width: 90%; /* 입력 필드와 버튼의 너비를 화면에 맞춤 */
+}
 
-  .split-container {
-    flex-direction: column;
-  }
+.split-container {
+flex-direction: column;
+}
 
-  .textarea-left, .result-container {
-    width: 100%; /* 모바일 화면의 너비에 맞춤 */
-    margin-bottom: 10px; /* 아래쪽 여백 설정 */
-  }
+.textarea-left, .result-container {
+width: 100%; /* textarea와 결과 컨테이너의 너비를 화면에 맞춤 /
+margin-bottom: 10px; / 컨테이너 사이의 간격을 추가 */
+}
 
-  .textarea-code,
-  #code-formatter textarea {
-    height: 200px; /* 모바일 화면에서 textarea의 높이를 조정 */
-    margin-bottom: 10px; /* 아래쪽 여백 설정 */
-  }
+.textarea-code,
+#code-formatter textarea {
+height: 200px; /* 모바일 화면에서 textarea의 높이를 조정 */
+}
 
-  .Login,
-  .File-operations {
-    margin-top: 20px; /* 모바일 화면에서 상단 여백을 조금 줄임 */
-  }
-
-  .nav-links,
-  .File-operations .buttons,
-  .button-container {
-    flex-direction: column;
-  }
+.Login,
+.File-operations {
+margin-top: 50px; /* 모바일 화면에서 상단 여백을 추가 */
+}
 }
