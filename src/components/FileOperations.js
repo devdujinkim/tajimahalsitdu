@@ -15,7 +15,6 @@ const FileOperations = ({ selectedFile, onFileListUpdate }) => {
 
     const isPasswordValid = await verifyPassword(password, 'upload');
     if (!isPasswordValid) {
-      alert('Invalid password');
       return;
     }
 
