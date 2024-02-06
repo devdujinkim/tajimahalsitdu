@@ -12,6 +12,7 @@ function App() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [todayLogs, setTodayLogs] = useState("");
   const [fileList, setFileList] = useState([]);
+  const apiURL = "https://api.tajimahalsitdu.it";
 
   useEffect(() => {
     const fetchAndSetFileList = async () => {
@@ -31,12 +32,16 @@ function App() {
 
   const onFileListUpdate = async () => {
     try {
-      const files = await fetchFileList();
+      // 캐시를 방지하기 위해 쿼리 파라미터에 현재 시각을 추가합니다.
+      const timestamp = new Date().getTime();
+      const files = await fetchFileList(apiURL + '/files?_=' + timestamp);
       setFileList(files);
     } catch (error) {
       console.error('Error updating file list:', error);
     }
   };
+  
+  
 
   const handleFileSelect = (file) => {
     setSelectedFile(file);

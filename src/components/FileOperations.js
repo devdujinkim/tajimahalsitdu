@@ -22,22 +22,24 @@ const FileOperations = ({ selectedFile, onFileListUpdate }) => {
   const handleFileChange = async (event) => {
     const files = event.target.files;
     if (files.length === 0) return;
-
+  
     const formData = new FormData();
     formData.append('file', files[0]);
-
+  
     try {
-      const uploadResponse = await uploadFile(formData, apiURL);
-      console.log('File uploaded successfully', uploadResponse);
-      if (uploadResponse.success) {
-        onFileListUpdate();
+      const response = await uploadFile(formData, apiURL);
+      if (response.data.originalname === files[0].name) {
+        await onFileListUpdate(); // 파일 목록 업데이트
       } else {
-        console.error('Upload failed:', uploadResponse.error);
+        alert(`Upload failed`);
       }
     } catch (error) {
-      console.error('Upload failed:', error);
+      alert(`Upload failed`);
     }
   };
+  
+  
+  
 
   const handleDownload = async () => {
     if (!selectedFile) {
@@ -70,7 +72,6 @@ const FileOperations = ({ selectedFile, onFileListUpdate }) => {
       const deleteResponse = await deleteFile(selectedFile, passwordInput);
       if (deleteResponse.success) {
         onFileListUpdate();
-        alert('File deleted successfully');
       } else {
         alert(deleteResponse.error || 'File deletion failed');
       }
