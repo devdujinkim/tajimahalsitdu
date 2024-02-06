@@ -7,7 +7,10 @@ import useApi from '../hooks/useApi'; // useApi 훅을 임포트합니다.
 
 const LogData = ({ logs, setLogs }) => {
   // clearLogs API 호출을 위한 useApi 훅을 사용합니다. 에러 상태도 함께 관리됩니다.
-  const { request: clearLogsRequest, error: clearLogsError } = useApi(clearLogs);
+  const { 
+    request: clearLogsRequest, 
+    error: clearLogsError 
+} = useApi(clearLogs);
 
   const handleClearLogs = async () => {
     const passwordInput = prompt("Please enter the password to clear logs:");
@@ -15,7 +18,6 @@ const LogData = ({ logs, setLogs }) => {
 
     const isPasswordValid = await verifyPassword(passwordInput, 'delete');
     if (!isPasswordValid) {
-      alert('Invalid password');
       return;
     }
 
