@@ -37,13 +37,43 @@ export const uploadFile = async (formData) => {
     }
   };
 
-
 // 파일 다운로드
-export const downloadFile = (fileName) => {
-  const downloadUrl = `${apiURL}/download/${fileName}`;
-  window.open(downloadUrl, '_blank');
+// 파일 다운로드
+export const downloadFile = async (fileName, password) => {
+    try {
+      const response = await fetch(`${apiURL}/download/${fileName}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password: password }), // password를 body에 포함
+      });
+
+      if (!response.ok) {
+        throw new Error(`Download failed: ${response.statusText}`);
+      }
+  
+      // 서버로부터 받은 pre-signed URL로 리디렉션 (또는 다운로드를 직접 처리)
+      const { url } = await response.json();
+
+      // Use the pre-signed URL to download the file
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName; // Set the file name for the download
+      document.body.appendChild(a);
+      a.click();
+      a.remove(); // Remove the anchor from the DOM
+
+      return { success: true };
+    } catch (error) {
+      console.error('File download failed:', error);
+      return { success: false, error: `File download failed: ${error.message}` };
+    }
 };
 
+
+  
+  
 // 파일 삭제
 export const deleteFile = async (fileName, password) => {
     const isPasswordValid = await verifyPassword(password, 'delete');

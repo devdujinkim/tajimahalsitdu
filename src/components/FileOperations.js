@@ -46,14 +46,24 @@ const FileOperations = ({ selectedFile, onFileListUpdate }) => {
       alert('Please select a file to download.');
       return;
     }
-    
+  
     const passwordInput = prompt("Please enter the password for download:");
     if (passwordInput) {
-      const isPasswordValid = await verifyPassword(passwordInput, 'download'); // 'download' 대신에 passwordInput을 전달
-      if (isPasswordValid) {
-        downloadFile(selectedFile, apiURL, passwordInput); // passwordInput을 downloadFile 함수에 전달
-      } else {
-        alert('Invalid password');
+      try {
+        const response = await downloadFile(selectedFile, passwordInput);
+        if (response.success) {
+          // If response is successful, the download has been initiated by the downloadFile function.
+          // No need to handle blob or create an anchor tag here, as the downloadFile function
+          // is expected to handle the download process.
+  
+          // Just display a success message or handle the post-download logic here if needed.
+          console.log('File download initiated for:', selectedFile);
+        } else {
+          alert('File download failed: ' + response.error);
+        }
+      } catch (error) {
+        console.error('File download failed:', error);
+        alert('File download failed');
       }
     }
   };
