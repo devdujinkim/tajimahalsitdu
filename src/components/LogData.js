@@ -1,27 +1,34 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import { clearLogs } from '../services/logService';
-import { verifyPassword } from '../services/fileService'; // 필요한 함수를 임포트합니다.
+import { verifyPassword } from '../services/fileService';
 import { convertLogsToHTML } from '../utils/helpers';
+import useApi from '../hooks/useApi'; // useApi 훅을 임포트합니다.
 
 const LogData = ({ logs, setLogs }) => {
-    const handleClearLogs = async () => {
-        const passwordInput = prompt("Please enter the password to clear logs:");
-        if (passwordInput) {
-          const isPasswordValid = await verifyPassword(passwordInput, 'delete'); // 'clearLogs' 대신 'delete' 사용
-          if (isPasswordValid) {
-            try {
-              await clearLogs(passwordInput); // 비밀번호를 인자로 전달
-              setLogs('');
-            } catch (error) {
-              alert(error.message);
-            }
-          } else {
-            alert('Invalid password');
-          }
-        }
-      };
-      
+  // clearLogs API 호출을 위한 useApi 훅을 사용합니다. 에러 상태도 함께 관리됩니다.
+  const { request: clearLogsRequest, error: clearLogsError } = useApi(clearLogs);
+
+  const handleClearLogs = async () => {
+    const passwordInput = prompt("Please enter the password to clear logs:");
+    if (!passwordInput) return;
+
+    const isPasswordValid = await verifyPassword(passwordInput, 'delete');
+    if (!isPasswordValid) {
+      alert('Invalid password');
+      return;
+    }
+
+    // useApi 훅을 사용하여 로그 클리어 API 호출을 수행합니다.
+    await clearLogsRequest(passwordInput);
+    // 에러가 없으면 로그 상태를 초기화합니다.
+    if (!clearLogsError) {
+      setLogs('');
+    } else {
+      // 에러가 있으면 에러 메시지를 표시합니다.
+      alert(`Error clearing logs: ${clearLogsError}`);
+    }
+  };
 
   const logsHTML = logs ? convertLogsToHTML(logs) : '';
 

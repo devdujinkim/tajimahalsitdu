@@ -1,9 +1,13 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import { uploadFile, downloadFile, deleteFile, verifyPassword } from '../services/fileService';
+import useApi from '../hooks/useApi';
 
 const FileOperations = ({ selectedFile, onFileListUpdate }) => {
   const apiURL = "https://api.tajimahalsitdu.it";
+  const { request: uploadRequest, error: uploadError } = useApi(uploadFile);
+  const { request: downloadRequest, error: downloadError } = useApi(downloadFile);
+  const { request: deleteRequest, error: deleteError } = useApi(deleteFile);
 
   const handleUpload = async () => {
     const password = prompt("Please enter the password for upload:");
@@ -15,7 +19,6 @@ const FileOperations = ({ selectedFile, onFileListUpdate }) => {
       return;
     }
 
-    // Password is valid, open the file selector
     document.getElementById('file-upload').click();
   };
 
@@ -26,20 +29,14 @@ const FileOperations = ({ selectedFile, onFileListUpdate }) => {
     const formData = new FormData();
     formData.append('file', files[0]);
   
-    try {
-      const response = await uploadFile(formData, apiURL);
-      if (response.data.originalname === files[0].name) {
-        await onFileListUpdate(); // 파일 목록 업데이트
-      } else {
-        alert(`Upload failed`);
-      }
-    } catch (error) {
-      alert(`Upload failed`);
+    await uploadRequest(formData, apiURL);
+
+    if (!uploadError) {
+      await onFileListUpdate();
+    } else {
+      alert(`Upload failed: ${uploadError}`);
     }
   };
-  
-  
-  
 
   const handleDownload = async () => {
     if (!selectedFile) {
@@ -47,29 +44,17 @@ const FileOperations = ({ selectedFile, onFileListUpdate }) => {
       return;
     }
   
-    const passwordInput = prompt("Please enter the password for download:");
-    if (passwordInput) {
-      try {
-        const response = await downloadFile(selectedFile, passwordInput);
-        if (response.success) {
-          // If response is successful, the download has been initiated by the downloadFile function.
-          // No need to handle blob or create an anchor tag here, as the downloadFile function
-          // is expected to handle the download process.
-  
-          // Just display a success message or handle the post-download logic here if needed.
-          console.log('File download initiated for:', selectedFile);
-        } else {
-          alert('File download failed: ' + response.error);
-        }
-      } catch (error) {
-        console.error('File download failed:', error);
-        alert('File download failed');
-      }
+    const password = prompt("Please enter the password for download:");
+    if (!password) return;
+
+    await downloadRequest(selectedFile, password);
+
+    if (!downloadError) {
+      console.log('File download initiated for:', selectedFile);
+    } else {
+      alert(`Download failed: ${downloadError}`);
     }
   };
-  
-  
-  
 
   const handleDelete = async () => {
     if (!selectedFile) {
@@ -77,14 +62,15 @@ const FileOperations = ({ selectedFile, onFileListUpdate }) => {
       return;
     }
   
-    const passwordInput = prompt("Please enter the password for deletion:");
-    if (passwordInput) {
-      const deleteResponse = await deleteFile(selectedFile, passwordInput);
-      if (deleteResponse.success) {
-        onFileListUpdate();
-      } else {
-        alert(deleteResponse.error || 'File deletion failed');
-      }
+    const password = prompt("Please enter the password for deletion:");
+    if (!password) return;
+
+    await deleteRequest(selectedFile, password);
+
+    if (!deleteError) {
+      onFileListUpdate();
+    } else {
+      alert(`Deletion failed: ${deleteError}`);
     }
   };
 
@@ -96,16 +82,10 @@ const FileOperations = ({ selectedFile, onFileListUpdate }) => {
         onChange={handleFileChange}
         style={{ display: 'none' }}
       />
-      <Button onClick={handleUpload} className="button-style">
-        Upload File
-      </Button>
+      <Button onClick={handleUpload} className="button-style">Upload File</Button>
       <div className="button-container">
-        <Button onClick={handleDownload} className="button-style">
-          Download Selected File
-        </Button>
-        <Button onClick={handleDelete} className="button-style">
-          Delete Selected File
-        </Button>
+        <Button onClick={handleDownload} className="button-style">Download Selected File</Button>
+        <Button onClick={handleDelete} className="button-style">Delete Selected File</Button>
       </div>
     </div>
   );
