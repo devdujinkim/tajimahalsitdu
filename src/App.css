@@ -4,11 +4,6 @@ body {
   background-color: #000E09;
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100%;
-  background-attachment: scroll;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -16,46 +11,60 @@ body {
   width: 400px;
 }
 
-/* .App 요소의 스타일은 그대로 유지됩니다. */
 .App {
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
-/* .App-header의 스타일이 수정되어 가운데로 배치됩니다. */
 .App-header {
   background-color: transparent;
   padding: 20px;
-  text-align: center;
 }
 
-/* .File-operations의 스타일이 수정되어 가운데로 배치됩니다. */
+.App-main {
+  padding: 20px;
+}
+
+.Login {
+  background-color: rgba(161, 147, 147, 0.622);
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  align-self: center;
+}
+
+.Login input {
+  margin: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  width: 200px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s;
+}
+
+.Login input:focus,
+.File-operations input[type="file"]:hover {
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+}
+
 .File-operations {
   margin: auto;
   padding: 20px;
   max-width: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
-/* 수정된 부분 끝 */
-
-/* 나머지 스타일은 그대로 유지됩니다. */
 .File-operations .buttons {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* File-list 텍스트 색상이 변경됩니다. */
 .File-list div {
-  color: white;
   cursor: pointer;
+  color: white; /* 파일 목록 텍스트 색상 변경 */
   margin-bottom: 10px;
 }
 
@@ -112,94 +121,47 @@ body {
 }
 
 .nav-links {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-  padding: 10px 0;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  display: flex;
-  justify-content: center;
-}
-
-.nav-links a {
-  color: white;
-  padding: 0 10px;
-  text-decoration: none;
-  font-size: 16px;
-  line-height: 1.5;
-}
-
-.nav-links a:hover {
-  color: #ccc;
+  display: none; /* 네비게이션 링크를 숨깁니다. */
 }
 
 #code-formatter textarea {
   width: 100%;
-  height: 300px; /* 기본 높이를 수정하세요 */
-  resize: vertical; /* 사용자가 높이를 조절할 수 있도록 설정 */
+  height: 300px;
+  resize: vertical;
 }
 
 @media (max-width: 768px) {
-  #code-formatter textarea {
-    height: 300px; /* 모바일 화면에서의 높이 */
-  }
-
-  .nav-links {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    padding: 10px 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: center;
-  }
-
-  .nav-links a {
-    color: white;
-    padding: 0 10px;
-    text-decoration: none;
-    font-size: 16px;
-    line-height: 1.5;
-  }
-
-  .nav-links a:hover {
-    color: #ccc;
-  }
-
-  .button-style, .nav-links a {
-    font-size: 14px;
-  }
-
-  .input-field, .button, .File-operations input[type="file"] {
-    padding: 8px 10px;
-  }
+  /* 해당 부분은 삭제되어 데스크톱 환경에 맞게 설정됩니다. */
 }
 
-body, .App-header, .App-main, .Login, .File-operations, #code-formatter textarea {
+body,
+.App-header,
+.App-main,
+.Login,
+.File-operations,
+#code-formatter textarea {
   flex-direction: column;
   align-items: stretch;
   padding: 10px;
   box-sizing: border-box;
 }
 
-.button-style, .nav-links a {
+.button-style,
+.nav-links a {
   transition: background-color 0.3s, color 0.3s;
 }
 
-.button-style:hover, .nav-links a:hover {
+.button-style:hover,
+.nav-links a:hover {
   background-color: #4a5568;
   color: #ffffff;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-body, input, button {
+body,
+input,
+button {
   font-family: 'Roboto', sans-serif;
 }
 
@@ -237,7 +199,8 @@ body, input, button {
   justify-content: space-between;
 }
 
-.textarea-left, .result-container {
+.textarea-left,
+.result-container {
   flex: 1;
 }
 
