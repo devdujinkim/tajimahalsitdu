@@ -16,64 +16,45 @@ body {
   width: 400px;
 }
 
-.App-header,
-.File-list div {
-  color: white;
-  text-shadow: 2px 2px 4px #000000;
-}
-
+/* .App 요소의 스타일은 그대로 유지됩니다. */
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
+/* .App-header의 스타일이 수정되어 가운데로 배치됩니다. */
 .App-header {
   background-color: transparent;
   padding: 20px;
   text-align: center;
 }
 
-.App-main {
-  padding: 20px;
-}
-
-.Login {
-  background-color: rgba(161, 147, 147, 0.622);
-  padding: 20px;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 100px;
-  align-self: center;
-}
-
-.Login input {
-  margin: 10px;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  width: 200px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-  transition: box-shadow 0.3s;
-}
-
-.Login input:focus, .File-operations input[type="file"]:hover {
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
-}
-
+/* .File-operations의 스타일이 수정되어 가운데로 배치됩니다. */
 .File-operations {
   margin: auto;
   padding: 20px;
   max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
+/* 수정된 부분 끝 */
+
+/* 나머지 스타일은 그대로 유지됩니다. */
 .File-operations .buttons {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+/* File-list 텍스트 색상이 변경됩니다. */
 .File-list div {
+  color: white;
   cursor: pointer;
   margin-bottom: 10px;
 }
@@ -165,7 +146,7 @@ body {
   #code-formatter textarea {
     height: 300px; /* 모바일 화면에서의 높이 */
   }
-  
+
   .nav-links {
     position: fixed;
     top: 0;

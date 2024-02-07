@@ -13,7 +13,7 @@ const LogData = ({ logs, setLogs }) => {
 } = useApi(clearLogs);
 
   const handleClearLogs = async () => {
-    const passwordInput = prompt("Please enter the password to clear logs:");
+    const passwordInput = prompt("Please enter the password.");
     if (!passwordInput) return;
 
     const isPasswordValid = await verifyPassword(passwordInput, 'delete');
