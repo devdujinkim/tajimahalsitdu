@@ -15,6 +15,7 @@ const FileOperations = ({ selectedFile, onFileListUpdate }) => {
 
     const isPasswordValid = await verifyPassword(password, 'upload');
     if (!isPasswordValid) {
+      alert('Invalid password for upload.');
       return;
     }
 
@@ -46,7 +47,13 @@ const FileOperations = ({ selectedFile, onFileListUpdate }) => {
     const password = prompt("Please enter the password for download:");
     if (!password) return;
 
-    await downloadRequest(selectedFile, password);
+    const isPasswordValid = await verifyPassword(password, 'download');
+    if (!isPasswordValid) {
+      alert('Invalid password for download.');
+      return;
+    }
+
+    await downloadRequest(selectedFile, password, apiURL);
 
     if (!downloadError) {
       console.log('File download initiated for:', selectedFile);
@@ -64,10 +71,16 @@ const FileOperations = ({ selectedFile, onFileListUpdate }) => {
     const password = prompt("Please enter the password for deletion:");
     if (!password) return;
 
-    await deleteRequest(selectedFile, password);
+    const isPasswordValid = await verifyPassword(password, 'delete');
+    if (!isPasswordValid) {
+      alert('Invalid password for deletion.');
+      return;
+    }
+
+    await deleteRequest(selectedFile, password, apiURL);
 
     if (!deleteError) {
-      onFileListUpdate();
+      await onFileListUpdate();
     } else {
       alert(`Deletion failed: ${deleteError}`);
     }
