@@ -116,7 +116,9 @@ body {
 }
 
 .File-operations label {
-  display: inline-block;
+  display: block;
+  width: 100%;
+  height: 100%;
   cursor: pointer;
 }
 
@@ -128,6 +130,13 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
 }
 
 .nav-links {
@@ -193,6 +202,7 @@ body {
 
   .button-style, .nav-links a {
     font-size: 14px;
+    
   }
 
   .input-field, .button, .File-operations input[type="file"] {
