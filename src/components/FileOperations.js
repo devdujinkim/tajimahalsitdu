@@ -92,9 +92,11 @@ const FileOperations = ({ selectedFile, onFileListUpdate }) => {
         id="file-upload"
         type="file"
         onChange={handleFileChange}
-        style={{ display: 'none' }}
+        style={{ opacity: 0, position: 'absolute', zIndex: -1 }}
       />
-      <Button onClick={handleUpload} className="button-style">Upload File</Button>
+      <label htmlFor="file-upload" className="button-style">
+        <Button>Upload File</Button>
+      </label>
       <div className="button-container">
         <Button onClick={handleDownload} className="button-style">Download Selected File</Button>
         <Button onClick={handleDelete} className="button-style">Delete Selected File</Button>
