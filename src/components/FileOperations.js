@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { uploadFile, downloadFile, deleteFile, verifyPassword } from '../services/fileService';
 import useApi from '../hooks/useApi';
@@ -8,18 +8,41 @@ const FileOperations = ({ selectedFile, onFileListUpdate }) => {
   const { request: uploadRequest, error: uploadError } = useApi(uploadFile);
   const { request: downloadRequest, error: downloadError } = useApi(downloadFile);
   const { request: deleteRequest, error: deleteError } = useApi(deleteFile);
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
 
-  const handleUpload = async () => {
-    const password = prompt("Please enter the password for upload:");
-    if (!password) return;
+  const handleUpload = () => {
+    setIsPasswordModalOpen(true);
+  };
 
+  const PasswordModal = ({ onPasswordSubmit, onClose }) => {
+    const [password, setPassword] = useState('');
+
+    return (
+      <div className="password-modal">
+        <input 
+          type="password" 
+          value={password} 
+          onChange={(e) => setPassword(e.target.value)} 
+        />
+        <button onClick={() => onPasswordSubmit(password)}>Submit</button>
+        <button onClick={onClose}>Close</button>
+      </div>
+    );
+  };
+  
+  const handlePasswordSubmit = async (password) => {
     const isPasswordValid = await verifyPassword(password, 'upload');
     if (!isPasswordValid) {
       alert('Invalid password for upload.');
       return;
     }
 
+    setIsPasswordModalOpen(false);
     document.getElementById('file-upload').click();
+  };
+
+  const handleCloseModal = () => {
+    setIsPasswordModalOpen(false);
   };
 
   const handleFileChange = async (event) => {
@@ -66,41 +89,46 @@ const FileOperations = ({ selectedFile, onFileListUpdate }) => {
     if (!selectedFile) {
       alert('Please select a file to delete.');
       return;
-    }
-  
-    const password = prompt("Please enter the password for deletion:");
-    if (!password) return;
+      }
+      const password = prompt("Please enter the password for deletion:");
+if (!password) return;
 
-    const isPasswordValid = await verifyPassword(password, 'delete');
-    if (!isPasswordValid) {
-      alert('Invalid password for deletion.');
-      return;
-    }
+const isPasswordValid = await verifyPassword(password, 'delete');
+if (!isPasswordValid) {
+  alert('Invalid password for deletion.');
+  return;
+}
 
-    await deleteRequest(selectedFile, password, apiURL);
+await deleteRequest(selectedFile, password, apiURL);
 
-    if (!deleteError) {
-      await onFileListUpdate();
-    } else {
-      alert(`Deletion failed: ${deleteError}`);
-    }
-  };
+if (!deleteError) {
+  await onFileListUpdate();
+} else {
+  alert(`Deletion failed: ${deleteError}`);
+}
+};
 
-  return (
-    <div className="File-operations">
-      <input
-        id="file-upload"
-        type="file"
-        onChange={handleFileChange}
-        style={{ display: 'none' }}
-      />
-      <Button onClick={handleUpload} className="button-style">Upload File</Button>
-      <div className="button-container">
-        <Button onClick={handleDownload} className="button-style">Download Selected File</Button>
-        <Button onClick={handleDelete} className="button-style">Delete Selected File</Button>
-      </div>
-    </div>
-  );
+return (
+<div className="File-operations">
+{isPasswordModalOpen && (
+<PasswordModal 
+       onClose={handleCloseModal} 
+       onPasswordSubmit={handlePasswordSubmit} 
+     />
+)}
+<input
+id="file-upload"
+type="file"
+onChange={handleFileChange}
+style={{ display: 'none' }}
+/>
+<Button onClick={handleUpload} className="button-style">Upload File</Button>
+<div className="button-container">
+<Button onClick={handleDownload} className="button-style">Download Selected File</Button>
+<Button onClick={handleDelete} className="button-style">Delete Selected File</Button>
+</div>
+</div>
+);
 };
 
 export default FileOperations;

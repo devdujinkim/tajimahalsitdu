@@ -185,6 +185,13 @@ body {
     justify-content: center; /* 링크들을 가운데 정렬 */
   }
   
+  .textarea-code, #code-formatter textarea {
+    width: 100%; /* 화면의 전체 너비를 차지하도록 설정 */
+    box-sizing: border-box; /* padding과 border가 width 계산에 포함되도록 설정 */
+    margin: 0; /* 필요한 경우 margin을 제거 */
+    /* 기타 스타일링이 필요하면 여기에 추가 */
+  }
+  
   .nav-links a {
     color: white; /* 링크의 텍스트 색상을 흰색으로 설정 */
     padding: 0 10px; /* 좌우 패딩을 추가하여 링크 사이에 공간을 만듬 */
