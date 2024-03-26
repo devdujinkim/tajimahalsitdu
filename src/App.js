@@ -64,10 +64,10 @@ function App() {
           onFileListUpdate={onFileListUpdate}  // 여기에 prop으로 함수를 전달합니다.
         />
         <CodeFormatter />
-        <LogData 
+        {/* <LogData 
           logs={todayLogs} 
           setLogs={setTodayLogs} 
-        />
+        /> */}
       </main>
     </div>
   );
